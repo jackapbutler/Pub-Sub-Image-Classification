@@ -76,7 +76,7 @@ def parse_labels(filename):
     return labels
 
 
-def write_files(out_folder, images, labels):
+def write_files(out_folder, images, labels, split):
     """
     This function will write lists of pixel ([int])
 
@@ -126,6 +126,6 @@ if __name__ == "__main__":
     for fname in TRAIN_FILES + TEST_FILES:
         gunzip(ORIG_DIR, fname)
 
-    convert(ORIG_DIR, OUT_DIR + "_tr", img_file=TRAIN_FILES[0], lbl_file=TRAIN_FILES[1])
+    convert(ORIG_DIR, OUT_DIR, img_file=TRAIN_FILES[0], lbl_file=TRAIN_FILES[1], split="train")
 
-    convert(ORIG_DIR, OUT_DIR + "_te", img_file=TEST_FILES[0], lbl_file=TEST_FILES[1])
+    convert(ORIG_DIR, OUT_DIR, img_file=TEST_FILES[0], lbl_file=TEST_FILES[1], split="test")
