@@ -6,7 +6,7 @@ def create_and_compile_model(D_x: int, D_y: int) -> keras.models.Sequential:
     theModel = keras.models.Sequential(
         [
             keras.layers.Flatten(input_shape=(D_x, D_x)),
-            keras.layers.Dense(128, activation="relu"),
+            keras.layers.Dense(56, activation="relu"),
             keras.layers.Dense(D_y),
         ]
     )

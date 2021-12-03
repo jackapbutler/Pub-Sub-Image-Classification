@@ -24,12 +24,12 @@ if choice == "Training":
             )
             trainGen, testGen, valGen = dproc.train_test_val_split(file_path)
 
-            st.write("Creating and compiling CNN model.")
+            st.write("Creating and compiling Model.")
             ex, yv = trainGen._load_image_pair_(0)
             model = mtrain.create_and_compile_model(D_x=ex.shape[0], D_y=yv.shape[0])
             model.summary(print_fn=lambda x: st.write(x + "\n"))
 
-            st.write("Compiled Model successfully, starting to train CNN model")
+            st.write("Compiled Model successfully, starting to train Model")
 
             model.fit(
                 trainGen,
@@ -39,6 +39,7 @@ if choice == "Training":
                 callbacks=None,
                 validation_data=valGen,
             )
+            st.write("Finished training the Model")
 
         else:
             st.write(

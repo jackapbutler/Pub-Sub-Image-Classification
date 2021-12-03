@@ -36,15 +36,14 @@ mnist_to_png.py
 
 ## Model Training
 
-There is a web application called `app.py` which is written using `streamlit`. This app handles all the model training and inference for this small scale assignment.
+There is a web application called `app.py` which is written using `streamlit`. This app handles all of the CNN model training and inference for this small scale assignment.
 
-To run these execute the following commands in the terminal;
+To start the app run: `streamlit run app.py`.
 
-- `streamlit run app.py`
+You will then be met with two choices [`Model Training` or `Inference`]:
 
-## Model Inference
-
-abcd
+- Follow the instructions in `Model Training` to train a new CNN model defined in `model_training.py` on image data from a certain folder.
+- Follow the instructions in `Inference` to obtain a prediction for a new image sample from the existing model.
 
 ## Code Formatting
 

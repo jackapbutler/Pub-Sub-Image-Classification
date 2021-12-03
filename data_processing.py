@@ -9,7 +9,7 @@ import skimage.io as sk_io
 import skimage.util as sk_utils
 import tensorflow.keras.utils as tf_utils
 
-BATCH_SIZE = 1000
+BATCH_SIZE = 100
 
 LABELS = {
     "0": "T-shirt/top",
@@ -59,7 +59,7 @@ class DataGenerator(tf_utils.Sequence):
         img_sk = sk_io.imread(file)
         split_f = file.split("/")  # to get the 0 in data/0/sample.png
 
-        theImage = sk_utils.img_as_float(img_sk)
+        theImage = self.scale(sk_utils.img_as_float(img_sk))
         gtImage = tf_utils.to_categorical(split_f[1], num_classes=fcount(split_f[0]))
 
         return theImage, gtImage
@@ -67,6 +67,11 @@ class DataGenerator(tf_utils.Sequence):
     def __len__(self) -> int:
         """ Returns the number of batches """
         return int(np.ceil(float(self.numImages) / float(self.batchSize)))
+
+    @staticmethod
+    def scale(img_array: np.ndarray) -> np.ndarray:
+        """ Scale and normalise the image arrays """
+        return img_array.astype("float32") / 255.0
 
     def __getitem__(self, theIndex: int) -> Tuple[np.ndarray, np.ndarray]:
         """ Gets "theIndex"-th batch from the training data """
