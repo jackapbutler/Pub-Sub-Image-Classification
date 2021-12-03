@@ -11,6 +11,19 @@ TRAIN_NUM = 60000
 TEST_FILES = ["t10k-images-idx3-ubyte", "t10k-labels-idx1-ubyte"]
 TEST_NUM = 10000
 
+LABELS = {
+    "0": "T-shirt/top",
+    "1": "Trouser",
+    "2": "Pullover",
+    "3": "Dress",
+    "4": "Coat",
+    "5": "Sandal",
+    "6": "Shirt",
+    "7": "Sneaker",
+    "8": "Bag",
+    "9": "Ankle boot",
+}
+
 
 def gunzip(orig_dir, filename):
     """
@@ -63,30 +76,33 @@ def parse_labels(filename):
     return labels
 
 
-def write_files(out_folder, images, labels, inc=True):
+def write_files(out_folder, images, labels):
     """
     This function will write lists of pixel ([int])
 
     inc=True meaning that every image will have it's own incremental id
     inc=False meaning that every image of specific label will have incremental
-    id
     """
     imgs = {}
+    for i in range(10):
+        os.makedirs(os.path.join(out_folder, str(i)), exist_ok=True)
+        imgs[i] = 0
 
     for idx, (img, lbl) in enumerate(zip(images, labels)):
         # e.g. train/0/15.png
-        if inc:
-            fpath = os.path.join(out_folder, str(lbl), str(idx) + ".png")
-        else:
-            fpath = os.path.join(out_folder, str(lbl), str(imgs[lbl]) + ".png")
-        img_file = open(fpath, "wb")
-        writer = png.Writer(28, 28, greyscale=True)
+        fpath = os.path.join(out_folder, str(lbl), str(idx) + ".png")
 
-        # Reshape img from 784 to 28x28
-        img = [img[n * 28 : (n + 1) * 28] for n in range(28)]
-        writer.write(img_file, img)
-        img_file.close()
-        imgs[lbl] += 1
+        with open(fpath, "wb") as img_f:
+            writer = png.Writer(28, 28, greyscale=True)
+            img = [img[n * 28 : (n + 1) * 28] for n in range(28)]
+            writer.write(img_f, img)
+            imgs[lbl] += 1
+
+
+def create_dir(directory: str):
+    """ Create a directory if the folder does not exist """
+    if not os.path.exists(directory):
+        os.makedirs(directory)
 
 
 def convert(orig_dir, out_dir, img_file, lbl_file):
@@ -110,8 +126,6 @@ if __name__ == "__main__":
     for fname in TRAIN_FILES + TEST_FILES:
         gunzip(ORIG_DIR, fname)
 
-    convert(
-        ORIG_DIR, OUT_DIR + "/train", img_file=TRAIN_FILES[0], lbl_file=TRAIN_FILES[1]
-    )
+    convert(ORIG_DIR, OUT_DIR + "_tr", img_file=TRAIN_FILES[0], lbl_file=TRAIN_FILES[1])
 
-    convert(ORIG_DIR, OUT_DIR + "/test", img_file=TEST_FILES[0], lbl_file=TEST_FILES[1])
+    convert(ORIG_DIR, OUT_DIR + "_te", img_file=TEST_FILES[0], lbl_file=TEST_FILES[1])
