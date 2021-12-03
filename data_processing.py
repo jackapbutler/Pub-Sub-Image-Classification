@@ -5,8 +5,24 @@ import random
 from typing import List, Tuple
 
 import numpy as np
-import skimage.io as skim_io
+import skimage.io as sk_io
+import skimage.util as sk_utils
 import tensorflow.keras.utils as tf_utils
+
+BATCH_SIZE = 1000
+
+LABELS = {
+    "0": "T-shirt/top",
+    "1": "Trouser",
+    "2": "Pullover",
+    "3": "Dress",
+    "4": "Coat",
+    "5": "Sandal",
+    "6": "Shirt",
+    "7": "Sneaker",
+    "8": "Bag",
+    "9": "Ankle boot",
+}
 
 
 class DataGenerator(tf_utils.Sequence):
@@ -15,12 +31,10 @@ class DataGenerator(tf_utils.Sequence):
     """
 
     def __init__(
-        self, fileNames, imgPath, gtPath, doRandomize=False, batchSize=10,
+        self, fileNames, doRandomize=False, batchSize=10,
     ):
-        self.imgPath: str = imgPath
-        self.gtPath: str = gtPath
         self.fileNames: List[str] = fileNames
-        self.batchSize: int = batchSize
+        self.batchSize: int = BATCH_SIZE
         self.doRandomize: bool = doRandomize
         self.numImages: int = len(self.fileNames)  # number of files
         self.on_epoch_end()
@@ -32,7 +46,7 @@ class DataGenerator(tf_utils.Sequence):
         if self.doRandomize:
             random.shuffle(self.fileNames)
 
-    def _load_image_pair_(self, imageIndex: int):
+    def _load_image_pair_(self, imageIndex: int) -> Tuple[np.ndarray, np.ndarray]:
         """
         Helper method used by `__getitem__` to handle loading image data.
 
@@ -42,19 +56,19 @@ class DataGenerator(tf_utils.Sequence):
         """
         file = self.fileNames[imageIndex]
 
-        img_sk = skim_io.imread(os.path.join(self.imgPath, file))
-        gt_sk = skim_io.imread(os.path.join(self.gtPath, file))
+        img_sk = sk_io.imread(file)
+        split_f = file.split("/")  # to get the 0 in data/0/sample.png
 
-        theImage = skim_io.img_as_float(img_sk)
-        gtImage = tf_utils.to_categorical(gt_sk)
+        theImage = sk_utils.img_as_float(img_sk)
+        gtImage = tf_utils.to_categorical(split_f[1], num_classes=fcount(split_f[0]))
 
         return theImage, gtImage
 
-    def __len__(self):
+    def __len__(self) -> int:
         """ Returns the number of batches """
         return int(np.ceil(float(self.numImages) / float(self.batchSize)))
 
-    def __getitem__(self, theIndex: int):
+    def __getitem__(self, theIndex: int) -> Tuple[np.ndarray, np.ndarray]:
         """ Gets "theIndex"-th batch from the training data """
         X = []
         y = []
@@ -65,22 +79,31 @@ class DataGenerator(tf_utils.Sequence):
             [curImage, curGT] = self._load_image_pair_(i)
             X.append(curImage)
             y.append(curGT)
+
         return np.array(X), np.array(y)
 
 
-def train_test_split(img_folder: str) -> Tuple(List[str], List[str], List[str]):
+def train_test_val_split(
+    img_folder: str,
+) -> Tuple[DataGenerator, DataGenerator, DataGenerator]:
     """
-    Takes in the name of a directory storing images and returns 3 
-    mutually exclusive training, validation and testing image lists.
+    Takes in the name of a directory storing images and returns training, validation and testing image lists.
+    Data folder structure is expected in the format: `img_folder`/<image_label_digit>/<image.png>.
+    It returns a instance of DataGenerator for each list of images.
 
     Args:
         img_folder (str): A folder name
     """
-    filenames: List[str] = os.listdir(img_folder)
+    all_filenames: List[str] = [
+        os.path.join(root, name)
+        for root, _, files in os.walk(img_folder)
+        for name in files
+        if name.endswith((".png", ".png"))
+    ]
 
-    random.shuffle(filenames)
+    random.shuffle(all_filenames)
     trainSet, testSet, valSet = np.split(
-        filenames, [int(len(filenames) * 0.7), int(len(filenames) * 0.9)]
+        all_filenames, [int(len(all_filenames) * 0.7), int(len(all_filenames) * 0.9)]
     )
 
     # sense check duplicates
@@ -90,4 +113,13 @@ def train_test_split(img_folder: str) -> Tuple(List[str], List[str], List[str]):
         if verdict is True:
             print("Duplicate values occur between ", pair[0], " and ", pair[1])
 
-    return trainSet, testSet, valSet
+    return DataGenerator(trainSet), DataGenerator(testSet), DataGenerator(valSet)
+
+
+def fcount(path: str) -> int:
+    """ Counts the number of folders inside a certain folder """
+    count1 = 0
+    for _, dirs, _ in os.walk(path):
+        count1 += len(dirs)
+
+    return count1

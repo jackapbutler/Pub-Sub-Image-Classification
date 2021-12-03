@@ -11,19 +11,6 @@ TRAIN_NUM = 60000
 TEST_FILES = ["t10k-images-idx3-ubyte", "t10k-labels-idx1-ubyte"]
 TEST_NUM = 10000
 
-LABELS = {
-    "0": "T-shirt/top",
-    "1": "Trouser",
-    "2": "Pullover",
-    "3": "Dress",
-    "4": "Coat",
-    "5": "Sandal",
-    "6": "Shirt",
-    "7": "Sneaker",
-    "8": "Bag",
-    "9": "Ankle boot",
-}
-
 
 def gunzip(orig_dir, filename):
     """

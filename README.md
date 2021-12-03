@@ -31,15 +31,20 @@ mnist_to_png.py
 
 3. Now run `python3 fmnist_to_png.py` to extract the images as `.png` files.
 
-- This will unzip, parse and save the images to `train/` and `test/` folders under a subfolder dictating their correct label.
+- This will unzip, parse and save the images to a `png_data/` folder where each subfolder refers to their label.
   > See `LABELS` module level variable in [`fmnist_to_png.py`](fmnist_to_png.py`) for an explanation of these labels.
 
-## Web Application
+## Model Training
 
-There is a web application called `app.py` which is written using `streamlit`.
+There is a web application called `app.py` which is written using `streamlit`. This app handles all the model training and inference for this small scale assignment.
+
 To run these execute the following commands in the terminal;
 
 - `streamlit run app.py`
+
+## Model Inference
+
+abcd
 
 ## Code Formatting
 
