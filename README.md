@@ -36,7 +36,7 @@ mnist_to_png.py
 
 ## Model Training
 
-There is a web application called `app.py` which is written using `streamlit`. This app handles all of the CNN model training and inference for this small scale assignment.
+There is a web application called `app.py` which is written using [`streamlit`](https://streamlit.io/). This app handles all of the CNN model training and inference for this small scale assignment.
 
 To start the app run: `streamlit run app.py`.
 
