@@ -4,10 +4,10 @@ import numpy as np
 import skimage.io as sk_io
 import streamlit as st
 
-import consumer
+import kafka.consumer as consumer
 import data_processing as dproc
 import model_training as mtrain
-import producer
+import kafka.producer as producer
 
 TRAIN = "Training"
 INFER = "Inference"

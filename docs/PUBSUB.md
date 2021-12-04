@@ -1,10 +1,10 @@
 # Pub Sub
 
-Now that the model is trained we can setup the Kafka Pub-Sub architecture. The messages within this ML system will be sent/received using a stream processing architecture. There are two options:
+Now that the model is trained we can setup the Kafka Pub-Sub architecture. The messages within this ML system will be sent/received using a stream processing architecture. There are two implementation options:
 
-1. A locally hosted [Apache Kafka](https://kafka.apache.org/) implementation.
+1. A locally hosted [Apache Kafka](https://kafka.apache.org/).
 
-2. A Google Cloud Platform [Pub/Sub](https://cloud.google.com/pubsub) implementation.
+2. A Google Cloud Platform [Pub/Sub](https://cloud.google.com/pubsub).
 
 ## Apache Kafka
 
@@ -33,6 +33,7 @@ To setup Kafka follow the steps below:
 
 - The Producer will be controlled inside of `app.py` and does not need any prior setup.
 - To setup the Consumer, open up a terminal instance and run `python3 consumer.py`.
+  > This Consumer will receive messages sent by the Producer and perform the classification predictions
 
 ## Google Cloud Pub/Sub
 
