@@ -2,7 +2,7 @@
 
 A Pub/Sub system for Fashion Image Classification.
 
-# Setup
+## Python Environment
 
 This repository uses Python 3.8.
 
@@ -80,10 +80,12 @@ To setup Kafka follow the steps below:
 
 6. To setup Kafka you will need a [Producer](producer.py) and [Consumer](consumer.py).
 
-- To setup the Consumer, open up a terminal instance and run `python3 consumer.py`
 - The Producer will be controlled inside of `app.py` and does not need any prior setup.
+- To setup the Consumer, open up a terminal instance and run `python3 consumer.py`.
 
 ### Google Cloud Pub/Sub
+
+To setup Kafka follow the steps below:
 
 ## Model Inference
 
