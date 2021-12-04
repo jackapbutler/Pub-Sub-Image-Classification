@@ -31,7 +31,10 @@ class DataGenerator(tf_utils.Sequence):
     """
 
     def __init__(
-        self, fileNames, doRandomize=False, batchSize=10,
+        self,
+        fileNames,
+        doRandomize=False,
+        batchSize=10,
     ):
         self.fileNames: List[str] = fileNames
         self.batchSize: int = BATCH_SIZE
@@ -41,7 +44,7 @@ class DataGenerator(tf_utils.Sequence):
 
     def on_epoch_end(self):
         """
-        Shuffle the data at the end of every epoch (if required)  
+        Shuffle the data at the end of every epoch (if required)
         """
         if self.doRandomize:
             random.shuffle(self.fileNames)
@@ -65,16 +68,16 @@ class DataGenerator(tf_utils.Sequence):
         return theImage, gtImage
 
     def __len__(self) -> int:
-        """ Returns the number of batches """
+        """Returns the number of batches"""
         return int(np.ceil(float(self.numImages) / float(self.batchSize)))
 
     @staticmethod
     def scale(img_array: np.ndarray) -> np.ndarray:
-        """ Scale and normalise the image arrays """
+        """Scale and normalise the image arrays"""
         return img_array.astype("float32") / 255.0
 
     def __getitem__(self, theIndex: int) -> Tuple[np.ndarray, np.ndarray]:
-        """ Gets "theIndex"-th batch from the training data """
+        """Gets "theIndex"-th batch from the training data"""
         X = []
         y = []
         bStart = max(theIndex * self.batchSize, 0)
@@ -122,7 +125,7 @@ def train_test_val_split(
 
 
 def fcount(path: str) -> int:
-    """ Counts the number of folders inside a certain folder """
+    """Counts the number of folders inside a certain folder"""
     count1 = 0
     for _, dirs, _ in os.walk(path):
         count1 += len(dirs)

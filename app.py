@@ -1,5 +1,6 @@
-import streamlit as st
 import os
+
+import streamlit as st
 
 import data_processing as dproc
 import model_training as mtrain
@@ -29,9 +30,10 @@ if choice == "Training":
             model = mtrain.create_and_compile_model(D_x=ex.shape[0], D_y=yv.shape[0])
             model.summary(print_fn=lambda x: st.write(x + "\n"))
 
-            st.write("Compiled Model successfully, starting to train Model")
+            st.write("Compiled Model successfully.")
 
-            model.fit(
+            st.write("Starting to train Model.")
+            trainHistory = model.fit(
                 trainGen,
                 steps_per_epoch=int(trainGen.numImages / 10),
                 epochs=10,
@@ -41,8 +43,10 @@ if choice == "Training":
             )
             st.write("Finished training the Model")
 
+            mtrain.save_trained_model("baseline", model, trainHistory)
+            st.write("Saved model to ")
+
         else:
             st.write(
                 f"Could not find the folder [{file_path}]. Please check this is where images are stored"
             )
-

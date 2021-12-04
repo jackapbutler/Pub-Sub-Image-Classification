@@ -85,7 +85,7 @@ def write_files(out_folder, images, labels, split):
 
 
 def create_dir(directory: str):
-    """ Create a directory if the folder does not exist """
+    """Create a directory if the folder does not exist"""
     if not os.path.exists(directory):
         os.makedirs(directory)
 
