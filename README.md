@@ -10,10 +10,7 @@ The Python packages are stored in the `env.yml` file. These can be installed usi
 
 - `conda env create -f env.yml`
 
-  > For Linux operating system.
-
-- `conda env create -f m1.yml`
-  > For M1 Macbook operating system.
+  > Note: This project was developed mainly on an M1 Macbook Air so some dependencies might not work.
 
 ## Data Extraction
 
@@ -49,6 +46,19 @@ You will then be met with two choices [`Model Training` or `Inference`]:
 
 - Follow the instructions in `Model Training` to train a new CNN model defined in `model_training.py` on image data from a certain folder.
 - Follow the instructions in `Inference` to obtain a prediction for a new image sample from the existing model.
+
+## Pub Sub
+
+Now that the model is trained we can setup the Kafka Pub-Sub architecture.
+
+1. Install [Java](https://www.oracle.com/java/technologies/downloads/) in order to run the Kafka executables.
+2. Download Kafka’s binaries from the official [download page](https://archive.apache.org/dist/kafka/3.0.0/kafka_2.13-3.0.0.tgz) (this one is for v3.0.0).
+3. Extract the tar files (inside of the appropriate directory): `tar -xvzf kafka_2.13-3.0.0.tgz`.
+4. Run the servers:
+
+   a) Run Zookeeper for state management: `bin/zookeeper-server-start.sh config/zookeeper.properties`
+
+   b) Kafka for data storage and distribution: `bin/kafka-server-start.sh config/server.properties`
 
 ## Code Formatting
 
