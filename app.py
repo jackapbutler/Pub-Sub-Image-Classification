@@ -14,6 +14,7 @@ if choice == "Training":
     file_path = st.text_input(
         label="Please enter the folder in the root directory which contains your image files."
     )
+    mname = st.text_input(label="Please provide a name for this trained model.")
     start = st.button("Start")
 
     if start:
@@ -33,18 +34,17 @@ if choice == "Training":
             st.write("Compiled Model successfully.")
 
             st.write("Starting to train Model.")
-            trainHistory = model.fit(
-                trainGen,
-                steps_per_epoch=int(trainGen.numImages / 10),
-                epochs=10,
-                verbose=1,
-                callbacks=None,
-                validation_data=valGen,
-            )
+            model, trainHistory = mtrain.fit_cnn_model(model)
             st.write("Finished training the Model")
 
-            mtrain.save_trained_model("baseline", model, trainHistory)
-            st.write("Saved model to ")
+            mtrain.save_trained_model(mname, model, trainHistory)
+            st.write(f"Saved model to under name [{mname}]")
+
+            model, history = mtrain.load_model_history(mname)
+            st.write(f"Loaded model and training history for [{mname}]")
+
+            mtrain.plot_training_history(mname, trainHistory)
+            st.write(f"Plotted training history for model [{mname}]")
 
         else:
             st.write(
