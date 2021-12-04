@@ -45,7 +45,6 @@ To start the app run: `streamlit run app.py`.
 You will then be met with two choices [`Model Training` or `Inference`]:
 
 - Follow the instructions in `Model Training` to train a new CNN model defined in `model_training.py` on image data from a certain folder.
-- Follow the instructions in `Inference` to obtain a prediction for a new image sample from the existing model.
 
 ## Pub Sub
 
@@ -85,17 +84,19 @@ To setup Kafka follow the steps below:
 
 ### Google Cloud Pub/Sub
 
-To setup Kafka follow the steps below:
+To setup GCP Pub/Sub follow the steps below:
 
 ## Model Inference
 
-Now that we have a trained model and Kafka streaming service setup we can predict the label of an image.
+Now that we have a trained model and stream processing service setup we can try to predict the label of an image.
 
 1. Open up the `streamlit` application by running `streamlit run app.py`.
 
 2. Choose the `Inference` option from the first select box.
 
-3. Upload your chosen image to generate fashion clothing category prediction.
+3. Choose the `model name` you want to perform the prediction.
+
+4. Upload your chosen image to generate fashion clothing category prediction.
 
 ## Code Formatting
 
