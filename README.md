@@ -49,7 +49,15 @@ You will then be met with two choices [`Model Training` or `Inference`]:
 
 ## Pub Sub
 
-Now that the model is trained we can setup the Kafka Pub-Sub architecture.
+Now that the model is trained we can setup the Kafka Pub-Sub architecture. The messages within this ML system will be sent/received using a stream processing architecture. There are two options:
+
+1. A locally hosted [Apache Kafka](https://kafka.apache.org/) implementation.
+
+2. A Google Cloud Platform [Pub/Sub](https://cloud.google.com/pubsub) implementation.
+
+### Apache Kafka
+
+To setup Kafka follow the steps below:
 
 1. Install [Java](https://www.oracle.com/java/technologies/downloads/) in order to run the Kafka executables.
 2. Download Kafka’s binaries from the official [download page](https://archive.apache.org/dist/kafka/3.0.0/kafka_2.13-3.0.0.tgz) (this one is for v3.0.0).
@@ -75,7 +83,9 @@ Now that the model is trained we can setup the Kafka Pub-Sub architecture.
 - To setup the Consumer, open up a terminal instance and run `python3 consumer.py`
 - The Producer will be controlled inside of `app.py` and does not need any prior setup.
 
-## Inference
+### Google Cloud Pub/Sub
+
+## Model Inference
 
 Now that we have a trained model and Kafka streaming service setup we can predict the label of an image.
 
