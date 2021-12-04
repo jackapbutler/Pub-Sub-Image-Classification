@@ -9,7 +9,7 @@ import skimage.io as sk_io
 import skimage.util as sk_utils
 import tensorflow.keras.utils as tf_utils
 
-BATCH_SIZE = 100
+BATCH_SIZE = 20
 
 LABELS = {
     "0": "T-shirt/top",

@@ -2,6 +2,7 @@
 import pickle
 from typing import Tuple
 import matplotlib.pyplot as plt
+import tensorflow as tf
 import tensorflow.keras as keras
 import tensorflow.python.keras.callbacks as cbacks
 import data_processing as dproc
@@ -23,7 +24,7 @@ def create_and_compile_model(D_x: int, D_y: int) -> keras.models.Sequential:
             ),
             keras.layers.MaxPooling2D((2, 2)),
             keras.layers.Flatten(),
-            keras.layers.Dense(20, activation="relu", kernel_initializer="he_uniform"),
+            keras.layers.Dense(10, activation="relu", kernel_initializer="he_uniform"),
             keras.layers.Dense(D_y, activation="softmax"),
         ]
     )
@@ -71,8 +72,14 @@ def fit_cnn_model(
     model: keras.models.Sequential,
     trainGen: dproc.DataGenerator,
     valGen: dproc.DataGenerator,
+    enable_gpu: bool = True,
 ) -> Tuple[keras.models.Sequential, cbacks.History]:
-    """Train a compiled Tensorflow CNN model"""
+    """Train a compiled Tensorflow CNN model on GPU"""
+
+    if enable_gpu:
+        tf.config.run_functions_eagerly(False)
+        tf.device(device_name="/GPU:0")
+
     trainHistory = model.fit(
         trainGen,
         epochs=TRAIN_EPOCHS,
