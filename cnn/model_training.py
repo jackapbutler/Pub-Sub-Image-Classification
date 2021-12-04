@@ -1,8 +1,7 @@
 """ Module for handling model compilation and training """
 import pickle
 from typing import Tuple
-
-import data_processing as dproc
+import cnn.data_processing as dproc
 import matplotlib.pyplot as plt
 import tensorflow as tf
 import tensorflow.keras as keras
@@ -45,7 +44,7 @@ def save_trained_model(
     """Saves a tensorflow model and training history to local file storage"""
     with open(f"{MODEL_DIR}{model_name}_trainHistoryDict.p", "wb") as fp:
         pickle.dump(trainHistory.history, fp)
-    theModel.save(model_name)
+    theModel.save(f"{MODEL_DIR}model_name")
 
 
 def load_model_history(
