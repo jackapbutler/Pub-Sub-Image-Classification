@@ -34,7 +34,7 @@ if choice == "Training":
             st.write("Compiled Model successfully.")
 
             st.write("Starting to train Model.")
-            model, trainHistory = mtrain.fit_cnn_model(model)
+            model, trainHistory = mtrain.fit_cnn_model(model, trainGen, valGen)
             st.write("Finished training the Model")
 
             mtrain.save_trained_model(mname, model, trainHistory)
