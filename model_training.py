@@ -1,7 +1,7 @@
 """ Module for handling model compilation and training """
 import pickle
 from typing import Tuple
-
+import matplotlib.pyplot as plt
 import tensorflow.keras as keras
 import tensorflow.python.keras.callbacks as cbacks
 
@@ -13,7 +13,7 @@ def create_and_compile_model(D_x: int, D_y: int) -> keras.models.Sequential:
     theModel = keras.models.Sequential(
         [
             keras.layers.Conv2D(
-                32,
+                10,
                 (3, 3),
                 activation="relu",
                 kernel_initializer="he_uniform",
@@ -21,7 +21,7 @@ def create_and_compile_model(D_x: int, D_y: int) -> keras.models.Sequential:
             ),
             keras.layers.MaxPooling2D((2, 2)),
             keras.layers.Flatten(),
-            keras.layers.Dense(100, activation="relu", kernel_initializer="he_uniform"),
+            keras.layers.Dense(20, activation="relu", kernel_initializer="he_uniform"),
             keras.layers.Dense(D_y, activation="softmax"),
         ]
     )
@@ -53,3 +53,11 @@ def load_model_history(
         open(f"{MODEL_DIR}{model_name}_trainHistoryDict.p", "rb")
     )
     return model, trainHistory
+
+
+def plot_training_history(trainHistory: cbacks.History) -> None:
+    metric_names = list(trainHistory.keys())
+    for name in metric_names:
+        plt.plot(trainHistory[name])
+        plt.legend(metric_names)
+    plt.show()
