@@ -1,8 +1,9 @@
 """ Module for consuming Kafka messages from the inference topic """
 import kafka
-import model_training as mtrain
-import data_processing as dproc
 import numpy as np
+
+import data_processing as dproc
+import model_training as mtrain
 
 TOPIC = "fashion-images"
 
