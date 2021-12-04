@@ -2,8 +2,8 @@ import os
 
 import streamlit as st
 
-import data_processing as dproc
-import model_training as mtrain
+import cnn.data_processing as dproc
+import cnn.model_training as mtrain
 
 st.title("CNN Classifier")
 choice = st.selectbox(

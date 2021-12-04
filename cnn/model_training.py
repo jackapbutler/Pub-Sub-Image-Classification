@@ -1,11 +1,12 @@
 """ Module for handling model compilation and training """
 import pickle
 from typing import Tuple
+
+import data_processing as dproc
 import matplotlib.pyplot as plt
 import tensorflow as tf
 import tensorflow.keras as keras
 import tensorflow.python.keras.callbacks as cbacks
-import data_processing as dproc
 
 MODEL_DIR = "models/"
 TRAIN_EPOCHS = 10
