@@ -1,13 +1,13 @@
 import os
+
 import numpy as np
 import skimage.io as sk_io
-import producer as prod
 import streamlit as st
 
+import consumer
 import data_processing as dproc
 import model_training as mtrain
-
-KAFKA_TOPIC = "sample"
+import producer
 
 st.title("CNN Classifier")
 choice = st.selectbox(
@@ -64,8 +64,8 @@ elif choice == "Inference":
         st.image(image)
 
         img: np.ndarray = sk_io.imread(image)
-        st.write(f"Sending message to Kafka topic {KAFKA_TOPIC}")
-        prod.send_img_to_kafka(img, KAFKA_TOPIC)
+        st.write(f"Sending message to Kafka topic {consumer.TOPIC}")
+        producer.send_img_to_kafka(img, consumer.TOPIC)
 
         # model, history = mtrain.load_model_history(mname)
         st.write(f"Loaded model and training history for [{mname}]")

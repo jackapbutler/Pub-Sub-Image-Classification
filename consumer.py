@@ -1,6 +1,9 @@
 """ Module for consuming Kafka messages from the inference topic """
 import kafka
+
 import data_processing as dproc
+
+TOPIC = "fashion-images"
 
 
 def initialise_img_consumer(topic: str):
@@ -15,8 +18,11 @@ def initialise_img_consumer(topic: str):
         img_array = dproc.bytes_to_img(img_bytes)
 
         # make prediction
+        pred = img_array
+
+        # print result
+        print(dproc.LABELS.get(pred))
 
 
 if __name__ == "__main__":
-    TOPIC = "sample"
     initialise_img_consumer(TOPIC)

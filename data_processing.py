@@ -1,7 +1,7 @@
 """ Module for handling data loading and processing """
 
-import os
 import io
+import os
 import random
 from typing import List, Tuple
 

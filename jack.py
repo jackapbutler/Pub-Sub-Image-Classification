@@ -1,5 +1,5 @@
-import model_training as mtrain
 import data_processing as dproc
+import model_training as mtrain
 
 trainGen, testGen, valGen = dproc.train_test_val_split("png_data")
 

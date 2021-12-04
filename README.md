@@ -60,15 +60,30 @@ Now that the model is trained we can setup the Kafka Pub-Sub architecture.
 
    b) Kafka for data storage and distribution: `bin/kafka-server-start.sh config/server.properties`
 
-5. We will need to create X topics for this assignment.
+5. We will need to create one topic called `fashion-images` for this assignment.
 
-a) Create a topic by running `bin/kafka-topics.sh --create --topic sample --bootstrap-server localhost:9092 --replication-factor 1 --partitions 4`.
+- Create a topic by running `bin/kafka-topics.sh --create --topic fashion-images --bootstrap-server localhost:9092 --replication-factor 1 --partitions 4`.
 
-b) List all created topics by running `bin/kafka-topics.sh --list --bootstrap-server localhost:9092`.
+> Note: List all created topics by running `bin/kafka-topics.sh --list --bootstrap-server localhost:9092`.
 
-c) Describe a certain topic by running `bin/kafka-topics.sh --describe --topic <my-kafka-topic> --bootstrap-server localhost:9092`.
+> Note: Describe a certain topic by running `bin/kafka-topics.sh --describe --topic fasion-images --bootstrap-server localhost:9092`.
 
-d) Delete a topic by running `bin/kafka-topics.sh --delete --topic <my-kafka-topic> --bootstrap-server localhost:9092`
+> Note: Delete a topic by running `bin/kafka-topics.sh --delete --topic fashion-images --bootstrap-server localhost:9092`
+
+6. To setup Kafka you will need a [Producer](producer.py) and [Consumer](consumer.py).
+
+- To setup the Consumer, open up a terminal instance and run `python3 consumer.py`
+- The Producer will be controlled inside of `app.py` and does not need any prior setup.
+
+## Inference
+
+Now that we have a trained model and Kafka streaming service setup we can predict the label of an image.
+
+1. Open up the `streamlit` application by running `streamlit run app.py`.
+
+2. Choose the `Inference` option from the first select box.
+
+3. Upload your chosen image to generate fashion clothing category prediction.
 
 ## Code Formatting
 

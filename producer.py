@@ -1,5 +1,6 @@
-from kafka import KafkaProducer
 import numpy as np
+from kafka import KafkaProducer
+
 import data_processing as dproc
 
 PRODUCER = KafkaProducer(bootstrap_servers="localhost:9092")
