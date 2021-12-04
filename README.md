@@ -10,7 +10,7 @@ The Python packages are stored in the `env.yml` file. These can be installed usi
 
 - `conda env create -f env.yml`
 
-  > Note: This project was developed mainly on an M1 Macbook Air so some dependencies might not work.
+  > This project was developed mainly on an M1 Macbook Air so some dependencies might not work.
 
 ## Data Extraction
 
@@ -64,11 +64,11 @@ Now that the model is trained we can setup the Kafka Pub-Sub architecture.
 
 - Create a topic by running `bin/kafka-topics.sh --create --topic fashion-images --bootstrap-server localhost:9092 --replication-factor 1 --partitions 4`.
 
-> Note: List all created topics by running `bin/kafka-topics.sh --list --bootstrap-server localhost:9092`.
+> List all created topics with `bin/kafka-topics.sh --list --bootstrap-server localhost:9092`.
 
-> Note: Describe a certain topic by running `bin/kafka-topics.sh --describe --topic fasion-images --bootstrap-server localhost:9092`.
+> Describe a certain topic with `bin/kafka-topics.sh --describe --topic fasion-images --bootstrap-server localhost:9092`.
 
-> Note: Delete a topic by running `bin/kafka-topics.sh --delete --topic fashion-images --bootstrap-server localhost:9092`
+> Delete a topic with `bin/kafka-topics.sh --delete --topic fashion-images --bootstrap-server localhost:9092`
 
 6. To setup Kafka you will need a [Producer](producer.py) and [Consumer](consumer.py).
 
