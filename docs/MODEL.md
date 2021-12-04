@@ -1,9 +1,19 @@
 # Model Training
 
-There is a web application called `app.py` which is written using [`streamlit`](https://streamlit.io/). This app handles all of the CNN model training and inference for this small scale assignment. I have used a basic CNN model defined inside of [model_training.py](../model_training.py). You can definitely improve performance by experiment with this configuration.
+This app handles all of training of the CNN models.
 
-To start the app run: `streamlit run app.py`.
+I have used a basic CNN model defined inside of [model_training.py](../model_training.py). You can add more layers, hidden neurons, convolutional filters or change any other model configuration elements inside of the `create_and_compile_model()` function.
 
-Choose the `Model Training` option from the **What do you want to do?** select box.
+Once you are satisfied with the model architecture follow the steps below:
 
-Follow the instructions to train a new CNN model on the extracted image data.
+1. Open up the `streamlit` application by running `streamlit run app.py` in a terminal.
+
+2. Choose the `Model Training` option from the **What do you want to do?** select box.
+
+3. Enter the folder where the extracted `.png` image files are stored.
+
+   > See [data extraction](DATA.md) for more information on extracting the image files.
+
+4. Enter a unique `model name` you want to assign this model (e.g. cnn_10_filters).
+
+5. Click the **Start** button to begin training the model!

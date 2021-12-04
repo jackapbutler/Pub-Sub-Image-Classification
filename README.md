@@ -5,7 +5,7 @@ A Pub/Sub system for Fashion Image Classification.
 In order to setup the entire application;
 
 - Install the appropriate Python environment.
-- Follow the outlined in the table of contents.
+- Follow the outlined in the table of contents below.
 
 ## Python Environment
 

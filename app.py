@@ -47,8 +47,8 @@ if choice == TRAIN:
         st.title("Experiment Log...")
 
         if os.path.exists(file_path):
-            st.write(
-                f"Found the folder [{file_path}], splitting images into train, test and validation sets."
+            st.markdown(
+                f"Found the folder **{file_path}**, splitting images into train, test and validation sets."
             )
             trainGen, testGen, valGen = dproc.train_test_val_split(file_path)
 
@@ -64,11 +64,11 @@ if choice == TRAIN:
             st.write("Finished training the Model")
 
             mtrain.save_trained_model(mname, model, trainHistory)
-            st.write(f"Saved model to under name [{mname}]")
+            st.markdown(f"Saved model to under name **{mname}**")
 
         else:
-            st.write(
-                f"Could not find the folder [{file_path}]. Please check this is where images are stored"
+            st.markdown(
+                f"Could not find the folder **{file_path}]**. Please check this is where images are stored"
             )
 
 elif choice == INFER:
@@ -82,6 +82,7 @@ elif choice == INFER:
         st.image(image)
 
         img: np.ndarray = sk_io.imread(image)
-        st.write(f"Sending message to Kafka topic {consumer.TOPIC}")
+        st.markdown(f"Sending message to Kafka topic **{consumer.TOPIC}**")
         producer.send_img_to_kafka(img, mname, consumer.TOPIC)
-        st.write(f"Message has been sent to Kafka topic {consumer.TOPIC}")
+        st.markdown(f"Message has been sent to Kafka topic **{consumer.TOPIC}**")
+        st.write("Check the Consumer of this topic for a prediction!")
