@@ -35,7 +35,6 @@ class DataGenerator(tf_utils.Sequence):
         self,
         fileNames,
         doRandomize=False,
-        batchSize=10,
     ):
         self.fileNames: List[str] = fileNames
         self.batchSize: int = BATCH_SIZE
@@ -63,18 +62,13 @@ class DataGenerator(tf_utils.Sequence):
         img_sk = sk_io.imread(file)
         split_f = file.split("/")  # to get the 0 in data/0/sample.png
 
-        return self.scale(sk_utils.img_as_float(img_sk)), tf_utils.to_categorical(
+        return prep_image(img_sk), tf_utils.to_categorical(
             split_f[1], num_classes=fcount(split_f[0])
         )
 
     def __len__(self) -> int:
         """Returns the number of batches"""
         return int(np.ceil(float(self.numImages) / float(self.batchSize)))
-
-    @staticmethod
-    def scale(img_array: np.ndarray) -> np.ndarray:
-        """Scale and normalise the image arrays"""
-        return img_array.astype("float32") / 255.0
 
     def __getitem__(self, theIndex: int) -> Tuple[np.ndarray, np.ndarray]:
         """Gets "theIndex"-th batch from the training data"""
@@ -89,6 +83,12 @@ class DataGenerator(tf_utils.Sequence):
             y.append(curGT)
 
         return np.array(X), np.array(y)
+
+
+def prep_image(img_array: np.ndarray) -> np.ndarray:
+    """Prepares a raw image array for the CNN model"""
+    scaled_arr = img_array.astype("float32") / 255.0
+    return sk_utils.img_as_float(scaled_arr)
 
 
 def train_test_val_split(

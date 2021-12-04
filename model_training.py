@@ -2,8 +2,6 @@
 import pickle
 from typing import Tuple
 
-import matplotlib.pyplot as plt
-import tensorflow as tf
 import tensorflow.keras as keras
 import tensorflow.python.keras.callbacks as cbacks
 
