@@ -1,6 +1,7 @@
 """ Module for handling data loading and processing """
 
 import os
+import io
 import random
 from typing import List, Tuple
 
@@ -62,10 +63,9 @@ class DataGenerator(tf_utils.Sequence):
         img_sk = sk_io.imread(file)
         split_f = file.split("/")  # to get the 0 in data/0/sample.png
 
-        theImage = self.scale(sk_utils.img_as_float(img_sk))
-        gtImage = tf_utils.to_categorical(split_f[1], num_classes=fcount(split_f[0]))
-
-        return theImage, gtImage
+        return self.scale(sk_utils.img_as_float(img_sk)), tf_utils.to_categorical(
+            split_f[1], num_classes=fcount(split_f[0])
+        )
 
     def __len__(self) -> int:
         """Returns the number of batches"""
@@ -131,3 +131,16 @@ def fcount(path: str) -> int:
         count1 += len(dirs)
 
     return count1
+
+
+def img_to_bytes(img_array: np.ndarray) -> bytes:
+    """Reads an image file into memory and converts to bytes"""
+    np_bytes = io.BytesIO()
+    np.save(np_bytes, img_array, allow_pickle=True)
+    return np_bytes.getvalue()
+
+
+def bytes_to_img(img_bytes: bytes) -> np.ndarray:
+    """Decodes the bytes into the a NumPy array"""
+    load_bytes = io.BytesIO(img_bytes)
+    return np.load(load_bytes, allow_pickle=True)

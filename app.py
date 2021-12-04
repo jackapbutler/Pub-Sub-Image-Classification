@@ -1,9 +1,13 @@
 import os
-
+import numpy as np
+import skimage.io as sk_io
+import producer as prod
 import streamlit as st
 
-import cnn.data_processing as dproc
-import cnn.model_training as mtrain
+import data_processing as dproc
+import model_training as mtrain
+
+KAFKA_TOPIC = "sample"
 
 st.title("CNN Classifier")
 choice = st.selectbox(
@@ -40,9 +44,6 @@ if choice == "Training":
             mtrain.save_trained_model(mname, model, trainHistory)
             st.write(f"Saved model to under name [{mname}]")
 
-            model, history = mtrain.load_model_history(mname)
-            st.write(f"Loaded model and training history for [{mname}]")
-
             mtrain.plot_training_history(mname, trainHistory)
             st.write(f"Plotted training history for model [{mname}]")
 
@@ -50,3 +51,21 @@ if choice == "Training":
             st.write(
                 f"Could not find the folder [{file_path}]. Please check this is where images are stored"
             )
+
+
+elif choice == "Inference":
+    mname = st.text_input(label="Please provide a name for this trained model.")
+    image = st.file_uploader(label="Please upload your image to classify.")
+    start = st.button("Start")
+
+    if start:
+        st.subheader("Your Image")
+        st.write(image)
+        st.image(image)
+
+        img: np.ndarray = sk_io.imread(image)
+        st.write(f"Sending message to Kafka topic {KAFKA_TOPIC}")
+        prod.send_img_to_kafka(img, KAFKA_TOPIC)
+
+        # model, history = mtrain.load_model_history(mname)
+        st.write(f"Loaded model and training history for [{mname}]")

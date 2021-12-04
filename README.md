@@ -60,6 +60,16 @@ Now that the model is trained we can setup the Kafka Pub-Sub architecture.
 
    b) Kafka for data storage and distribution: `bin/kafka-server-start.sh config/server.properties`
 
+5. We will need to create X topics for this assignment.
+
+a) Create a topic by running `bin/kafka-topics.sh --create --topic sample --bootstrap-server localhost:9092 --replication-factor 1 --partitions 4`.
+
+b) List all created topics by running `bin/kafka-topics.sh --list --bootstrap-server localhost:9092`.
+
+c) Describe a certain topic by running `bin/kafka-topics.sh --describe --topic <my-kafka-topic> --bootstrap-server localhost:9092`.
+
+d) Delete a topic by running `bin/kafka-topics.sh --delete --topic <my-kafka-topic> --bootstrap-server localhost:9092`
+
 ## Code Formatting
 
 This respository uses `black` and `isort` for code and package import formatting.

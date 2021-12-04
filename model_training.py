@@ -1,14 +1,14 @@
 """ Module for handling model compilation and training """
 import pickle
 from typing import Tuple
-import cnn.data_processing as dproc
+import data_processing as dproc
 import matplotlib.pyplot as plt
 import tensorflow as tf
 import tensorflow.keras as keras
 import tensorflow.python.keras.callbacks as cbacks
 
 MODEL_DIR = "models/"
-TRAIN_EPOCHS = 10
+TRAIN_EPOCHS = 50
 
 
 def create_and_compile_model(D_x: int, D_y: int) -> keras.models.Sequential:
@@ -16,7 +16,7 @@ def create_and_compile_model(D_x: int, D_y: int) -> keras.models.Sequential:
     theModel = keras.models.Sequential(
         [
             keras.layers.Conv2D(
-                10,
+                30,
                 (3, 3),
                 activation="relu",
                 kernel_initializer="he_uniform",
@@ -24,7 +24,7 @@ def create_and_compile_model(D_x: int, D_y: int) -> keras.models.Sequential:
             ),
             keras.layers.MaxPooling2D((2, 2)),
             keras.layers.Flatten(),
-            keras.layers.Dense(10, activation="relu", kernel_initializer="he_uniform"),
+            keras.layers.Dense(20, activation="relu", kernel_initializer="he_uniform"),
             keras.layers.Dense(D_y, activation="softmax"),
         ]
     )
@@ -72,13 +72,8 @@ def fit_cnn_model(
     model: keras.models.Sequential,
     trainGen: dproc.DataGenerator,
     valGen: dproc.DataGenerator,
-    enable_gpu: bool = True,
 ) -> Tuple[keras.models.Sequential, cbacks.History]:
     """Train a compiled Tensorflow CNN model on GPU"""
-
-    if enable_gpu:
-        tf.config.run_functions_eagerly(False)
-        tf.device(device_name="/GPU:0")
 
     trainHistory = model.fit(
         trainGen,
