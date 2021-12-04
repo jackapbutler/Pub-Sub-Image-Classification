@@ -10,6 +10,11 @@ The Python packages are stored in the `env.yml` file. These can be installed usi
 
 - `conda env create -f env.yml`
 
+  > For Linux operating system.
+
+- `conda env create -f m1.yml`
+  > For M1 Macbook operating system.
+
 ## Data Extraction
 
 The main dataset used is the Fasion MNIST benchmark dataset.
