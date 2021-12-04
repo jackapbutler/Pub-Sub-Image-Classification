@@ -1,13 +1,13 @@
 import os
 
+import kafka.consumer as consumer
+import kafka.producer as producer
 import numpy as np
 import skimage.io as sk_io
 import streamlit as st
 
-import kafka.consumer as consumer
 import data_processing as dproc
 import model_training as mtrain
-import kafka.producer as producer
 
 TRAIN = "Training"
 INFER = "Inference"
