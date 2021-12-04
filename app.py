@@ -9,17 +9,39 @@ import data_processing as dproc
 import model_training as mtrain
 import producer
 
-st.title("CNN Classifier")
-choice = st.selectbox(
-    label="What do you want to do?", options=["Training", "Inference"]
-)
+TRAIN = "Training"
+INFER = "Inference"
 
-if choice == "Training":
-    file_path = st.text_input(
+
+def ModelInput() -> str:
+    return st.text_input(label="Please provide a name for this trained model.")
+
+
+def StartButton() -> str:
+    return st.button("Start")
+
+
+def ImageUpload() -> str:
+    return st.file_uploader(label="Please upload your image to classify.")
+
+
+def FilePath() -> str:
+    return st.text_input(
         label="Please enter the folder in the root directory which contains your image files."
     )
-    mname = st.text_input(label="Please provide a name for this trained model.")
-    start = st.button("Start")
+
+
+def ViewChoice() -> str:
+    return st.selectbox(label="What do you want to do?", options=[TRAIN, INFER])
+
+
+st.title("CNN Classifier")
+choice = ViewChoice()
+
+if choice == TRAIN:
+    file_path = FilePath()
+    mname = ModelInput()
+    start = StartButton()
 
     if start:
         st.title("Experiment Log...")
@@ -44,19 +66,15 @@ if choice == "Training":
             mtrain.save_trained_model(mname, model, trainHistory)
             st.write(f"Saved model to under name [{mname}]")
 
-            mtrain.plot_training_history(mname, trainHistory)
-            st.write(f"Plotted training history for model [{mname}]")
-
         else:
             st.write(
                 f"Could not find the folder [{file_path}]. Please check this is where images are stored"
             )
 
-
-elif choice == "Inference":
-    mname = st.text_input(label="Please provide a name for this trained model.")
-    image = st.file_uploader(label="Please upload your image to classify.")
-    start = st.button("Start")
+elif choice == INFER:
+    mname = ModelInput()
+    image = ImageUpload()
+    start = StartButton()
 
     if start:
         st.subheader("Your Image")
@@ -65,7 +83,5 @@ elif choice == "Inference":
 
         img: np.ndarray = sk_io.imread(image)
         st.write(f"Sending message to Kafka topic {consumer.TOPIC}")
-        producer.send_img_to_kafka(img, consumer.TOPIC)
-
-        # model, history = mtrain.load_model_history(mname)
-        st.write(f"Loaded model and training history for [{mname}]")
+        producer.send_img_to_kafka(img, mname, consumer.TOPIC)
+        st.write(f"Message has been sent to Kafka topic {consumer.TOPIC}")
