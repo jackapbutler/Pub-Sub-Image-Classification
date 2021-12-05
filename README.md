@@ -5,17 +5,13 @@ A Pub/Sub system for Fashion Image Classification.
 In order to setup the entire application;
 
 - Install the appropriate Python environment.
-- Follow the outlined in the table of contents below.
+- Follow the steps outlined in the table of contents below.
 
 ## Python Environment
 
 This repository uses Python 3.8.
 
-The Python packages are stored in the `env.yml` file. These can be installed using `conda` by running:
-
-- `conda env create -f env.yml`
-
-  > This project was developed mainly on an M1 Macbook Air so some dependencies might not work.
+The Python packages are stored in the `env.yml` file. These can be installed using `conda` by running `conda env create -f env.yml`.
 
 ## Contents
 
