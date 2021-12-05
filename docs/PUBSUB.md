@@ -31,9 +31,11 @@ To setup Kafka follow the steps below:
 
 6. To setup Kafka you will need a [Producer](../producer.py) and [Consumer](../consumer.py).
 
-- The Producer will be controlled inside of `app.py` and does not need any prior setup.
-- To setup the Consumer, open up a terminal instance and run `python3 consumer.py`.
-  > This Consumer will receive messages sent by the Producer and perform the classification predictions
+- The Producer will be controlled inside of `model_app.py` and does not need any prior setup.
+
+- To setup the Consumer, open up a terminal instance and run `streamlit run results_app.py`.
+
+1.
 
 ## Google Cloud Pub/Sub
 

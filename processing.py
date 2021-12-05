@@ -86,7 +86,7 @@ class DataGenerator(tf_utils.Sequence):
 
 
 def prep_image(img_array: np.ndarray) -> np.ndarray:
-    """Prepares a raw image array for the CNN model"""
+    """Scales and prepares a raw image array for the CNN model"""
     scaled_arr = img_array.astype("float32") / 255.0
     return sk_utils.img_as_float(scaled_arr)
 

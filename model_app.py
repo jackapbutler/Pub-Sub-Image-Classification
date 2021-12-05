@@ -1,47 +1,27 @@
+""" Application to train models and perform inference on certain pretrained models """
 import os
 
-import kafka.consumer as consumer
-import kafka.producer as producer
+import kafka_consumer as consumer
+import kafka_producer as producer
 import numpy as np
 import skimage.io as sk_io
 import streamlit as st
 
-import data_processing as dproc
-import model_training as mtrain
+import processing as dproc
+import modelling as mtrain
+import utils
 
 TRAIN = "Training"
 INFER = "Inference"
 
 
-def ModelInput() -> str:
-    return st.text_input(label="Please provide a name for this trained model.")
-
-
-def StartButton() -> str:
-    return st.button("Start")
-
-
-def ImageUpload() -> str:
-    return st.file_uploader(label="Please upload your image to classify.")
-
-
-def FilePath() -> str:
-    return st.text_input(
-        label="Please enter the folder in the root directory which contains your image files."
-    )
-
-
-def ViewChoice() -> str:
-    return st.selectbox(label="What do you want to do?", options=[TRAIN, INFER])
-
-
 st.title("CNN Classifier")
-choice = ViewChoice()
+choice = utils.ViewChoice(options=[TRAIN, INFER])
 
 if choice == TRAIN:
-    file_path = FilePath()
-    mname = ModelInput()
-    start = StartButton()
+    file_path = utils.FilePath()
+    mname = utils.ModelInput()
+    start = utils.StartButton("Start Training")
 
     if start:
         st.title("Experiment Log...")
@@ -72,9 +52,9 @@ if choice == TRAIN:
             )
 
 elif choice == INFER:
-    mname = ModelInput()
-    image = ImageUpload()
-    start = StartButton()
+    mname = utils.ModelInput()
+    image = utils.ImageUpload()
+    start = utils.StartButton("Send Image")
 
     if start:
         st.subheader("Your Image")

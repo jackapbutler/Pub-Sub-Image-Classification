@@ -1,16 +1,23 @@
+""" Module to handle instantiating and sending image data from a Kafka producer """
+import kafka
 import numpy as np
-from kafka import KafkaProducer
 
-import data_processing as dproc
+import processing as dproc
 
-PRODUCER = KafkaProducer(bootstrap_servers="localhost:9092")
+LOCAL_KAFKA_HOST = "localhost:9092"
 
 
-def send_img_to_kafka(img_array: np.ndarray, model: str, topic: str):
+def initialise_producer(bootstrap_servers: str) -> kafka.KafkaProducer:
+    return kafka.KafkaProducer(bootstrap_servers=bootstrap_servers)
+
+
+def send_img_to_kafka(
+    producer: kafka.KafkaProducer, img_array: np.ndarray, model_name: str, topic: str
+):
     """
     Sends a image as bytes to a certain Kafka topic
     """
-
-    img_bytes = dproc.img_to_bytes(img_array)
-    PRODUCER.send(topic, key=f"{model}".encode(), value=img_bytes)
-    PRODUCER.flush()
+    producer.send(
+        topic, key=f"{model_name}".encode(), value=dproc.img_to_bytes(img_array)
+    )
+    producer.flush()

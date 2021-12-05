@@ -2,11 +2,11 @@
 
 This app handles all of training of the CNN models.
 
-I have used a basic CNN model defined inside of [model_training.py](../model_training.py). You can add more layers, hidden neurons, convolutional filters or change any other model configuration elements inside of the `create_and_compile_model()` function.
+I have used a basic CNN model defined inside of [modelling.py](../modelling.py). You can add more layers, hidden neurons, convolutional filters or change any other model configuration elements inside of the `create_and_compile_model()` function.
 
 Once you are satisfied with the model architecture follow the steps below:
 
-1. Open up the `streamlit` application by running `streamlit run app.py` in a terminal.
+1. Open up the `streamlit` application by running `streamlit run model_app.py` in a terminal.
 
 2. Choose the `Model Training` option from the **What do you want to do?** select box.
 

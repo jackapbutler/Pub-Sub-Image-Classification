@@ -5,7 +5,7 @@ from typing import Tuple
 import tensorflow.keras as keras
 import tensorflow.python.keras.callbacks as cbacks
 
-import data_processing as dproc
+import processing as dproc
 
 MODEL_DIR = "models"
 TRAIN_EPOCHS = 50
@@ -45,17 +45,6 @@ def save_trained_model(
     with open(f"{MODEL_DIR}{model_name}_trainHistoryDict.p", "wb") as fp:
         pickle.dump(trainHistory.history, fp)
     theModel.save(f"{MODEL_DIR}{model_name}")
-
-
-def load_model_and_history(
-    model_name: str,
-) -> Tuple[keras.models.Sequential, cbacks.History]:
-    """Loads a training tensorflow model and training history from local file storage"""
-    model = keras.models.load_model(f"{MODEL_DIR}/{model_name}")
-    trainHistory = pickle.load(
-        open(f"{MODEL_DIR}/{model_name}/trainHistoryDict.p", "rb")
-    )
-    return model, trainHistory
 
 
 def fit_cnn_model(

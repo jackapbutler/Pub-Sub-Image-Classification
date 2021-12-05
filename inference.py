@@ -1,0 +1,30 @@
+""" Module for handling model loading and inference functionality """
+from typing import Tuple
+import tensorflow.keras as keras
+import tensorflow.keras.callbacks as cbacks
+import processing as dproc
+import numpy as np
+import modelling as mtrain
+import pickle
+
+
+def load_model_and_history(
+    model_name: str,
+) -> Tuple[keras.models.Sequential, cbacks.History]:
+    """Loads a training tensorflow model and training history from local file storage"""
+    model = keras.models.load_model(f"{mtrain.MODEL_DIR}/{model_name}")
+    trainHistory = pickle.load(
+        open(f"{mtrain.MODEL_DIR}/{model_name}/trainHistoryDict.p", "rb")
+    )
+    return model, trainHistory
+
+
+def perform_image_prediction(
+    img_array: np.ndarray, model: keras.models.Sequential
+) -> str:
+    """Takes in the NumPy array of image data and perfoms a classification prediction"""
+    prepped_img = dproc.prep_image(img_array)
+    final_img = prepped_img.reshape(1, prepped_img.shape[0], prepped_img.shape[1], 1)
+    output = model.predict(final_img)
+    pred = str(np.argmax(output))
+    return dproc.LABELS.get(pred)
