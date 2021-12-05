@@ -1,10 +1,12 @@
+import json
 import logging
 from typing import Dict
-import json
-import utils
+
 import numpy as np
 from google.cloud import pubsub_v1
+
 import inference as infer
+import utils
 
 GCP_CONFIG = utils.set_gcp_config()
 

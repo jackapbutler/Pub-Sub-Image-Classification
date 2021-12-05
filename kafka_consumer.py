@@ -1,8 +1,9 @@
 """ Module for consuming Kafka messages from the inference topic """
+import io
 from typing import Tuple
+
 import kafka
 import numpy as np
-import io
 
 DEFAULT_TOPIC = "fashion-images"
 

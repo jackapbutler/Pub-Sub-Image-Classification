@@ -1,7 +1,8 @@
 """ Module to handle instantiating and sending image data from a Kafka producer """
+import io
+
 import kafka
 import numpy as np
-import io
 
 LOCAL_KAFKA_HOST = "localhost:9092"
 

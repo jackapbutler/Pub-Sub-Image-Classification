@@ -1,11 +1,13 @@
 import numpy as np
 
 """ Testing the GCP Pub/Sub Inference system"""
+import time
+
+import skimage.io as sk_io
+
+import utils
 from gcp_consumer import GCPImageConsumer
 from gcp_producer import GCPImageProducer
-import skimage.io as sk_io
-import time
-import utils
 
 GCP_CONFIG = utils.set_gcp_config()
 MODEL = "baseline"

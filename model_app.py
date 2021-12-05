@@ -5,11 +5,11 @@ import numpy as np
 import skimage.io as sk_io
 import streamlit as st
 
-from kafka_producer import KafkaImageProducer
 import kafka_consumer as consumer
 import modelling as mtrain
 import processing as dproc
 import utils
+from kafka_producer import KafkaImageProducer
 
 TRAIN = "Training"
 INFER = "Inference"

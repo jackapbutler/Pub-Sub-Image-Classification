@@ -1,9 +1,10 @@
 """ General utility functions for streamlit and image processing"""
 
+import json
 import os
 from typing import Dict, List
+
 import numpy as np
-import json
 import streamlit as st
 
 

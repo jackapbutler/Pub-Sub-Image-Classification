@@ -5,8 +5,8 @@ import streamlit as st
 import tensorflow.keras as keras
 
 import inference as infer
-from kafka_consumer import KafkaImageConsumer, DEFAULT_TOPIC
 import utils
+from kafka_consumer import DEFAULT_TOPIC, KafkaImageConsumer
 
 st.title("Results/Prediction App")
 st.markdown(

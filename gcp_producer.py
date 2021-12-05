@@ -1,9 +1,11 @@
-import numpy as np
-from typing import Dict
-from google.cloud import pubsub_v1
-import utils
-import time
 import json
+import time
+from typing import Dict
+
+import numpy as np
+from google.cloud import pubsub_v1
+
+import utils
 
 GCP_CONFIG = utils.set_gcp_config()
 
