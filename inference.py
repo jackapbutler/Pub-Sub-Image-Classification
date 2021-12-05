@@ -1,11 +1,13 @@
 """ Module for handling model loading and inference functionality """
+import pickle
 from typing import Tuple
+
+import numpy as np
 import tensorflow.keras as keras
 import tensorflow.keras.callbacks as cbacks
-import processing as dproc
-import numpy as np
+
 import modelling as mtrain
-import pickle
+import processing as dproc
 
 
 def load_model_and_history(

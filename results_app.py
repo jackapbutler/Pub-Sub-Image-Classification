@@ -1,10 +1,11 @@
 """ Application to start a Kafka consumer and watch image processing """
-import kafka_consumer as consumer
-import tensorflow.keras as keras
-import utils
 import logging
-import inference as infer
+
 import streamlit as st
+import tensorflow.keras as keras
+
+import inference as infer
+import kafka_consumer as consumer
 import utils
 
 st.title("Results/Prediction App")

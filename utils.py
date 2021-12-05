@@ -1,9 +1,10 @@
 """ General utility functions for streamlit and image processing"""
-import os
-import numpy as np
 import io
-import streamlit as st
+import os
 from typing import List
+
+import numpy as np
+import streamlit as st
 
 
 def ModelInput() -> str:

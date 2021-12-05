@@ -1,14 +1,14 @@
 """ Application to train models and perform inference on certain pretrained models """
 import os
 
-import kafka_consumer as consumer
-import kafka_producer as producer
 import numpy as np
 import skimage.io as sk_io
 import streamlit as st
 
-import processing as dproc
+import kafka_consumer as consumer
+import kafka_producer as producer
 import modelling as mtrain
+import processing as dproc
 import utils
 
 TRAIN = "Training"

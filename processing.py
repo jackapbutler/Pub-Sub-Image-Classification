@@ -3,11 +3,13 @@
 import os
 import random
 from typing import List, Tuple
-import utils
+
 import numpy as np
 import skimage.io as sk_io
 import skimage.util as sk_utils
 import tensorflow.keras.utils as tf_utils
+
+import utils
 
 BATCH_SIZE = 20
 
