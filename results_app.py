@@ -1,6 +1,6 @@
 """ Application to start a Kafka consumer and watch image processing """
 import kafka_consumer as consumer
-import processing as dproc
+import utils
 import logging
 import inference as infer
 import streamlit as st
@@ -28,7 +28,7 @@ if start:
         mname_bytes: bytes = message.key
         img_bytes: bytes = message.value
 
-        img_array = dproc.bytes_to_img(img_bytes)
+        img_array = utils.bytes_to_img(img_bytes)
         model_name = mname_bytes.decode()
 
         st.write("A prediction is required for this image:")

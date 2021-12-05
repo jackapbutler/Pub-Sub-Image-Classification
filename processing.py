@@ -1,10 +1,9 @@
 """ Module for handling data loading and processing """
 
-import io
 import os
 import random
 from typing import List, Tuple
-
+import utils
 import numpy as np
 import skimage.io as sk_io
 import skimage.util as sk_utils
@@ -63,7 +62,7 @@ class DataGenerator(tf_utils.Sequence):
         split_f = file.split("/")  # to get the 0 in data/0/sample.png
 
         return prep_image(img_sk), tf_utils.to_categorical(
-            split_f[1], num_classes=fcount(split_f[0])
+            split_f[1], num_classes=utils.fcount(split_f[0])
         )
 
     def __len__(self) -> int:
@@ -122,25 +121,3 @@ def train_test_val_split(
             print("Duplicate values occur between ", pair[0], " and ", pair[1])
 
     return DataGenerator(trainSet), DataGenerator(testSet), DataGenerator(valSet)
-
-
-def fcount(path: str) -> int:
-    """Counts the number of folders inside a certain folder"""
-    count1 = 0
-    for _, dirs, _ in os.walk(path):
-        count1 += len(dirs)
-
-    return count1
-
-
-def img_to_bytes(img_array: np.ndarray) -> bytes:
-    """Reads an image file into memory and converts to bytes"""
-    np_bytes = io.BytesIO()
-    np.save(np_bytes, img_array, allow_pickle=True)
-    return np_bytes.getvalue()
-
-
-def bytes_to_img(img_bytes: bytes) -> np.ndarray:
-    """Decodes the bytes into the a NumPy array"""
-    load_bytes = io.BytesIO(img_bytes)
-    return np.load(load_bytes, allow_pickle=True)
