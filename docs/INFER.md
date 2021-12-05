@@ -1,12 +1,12 @@
 # Model Inference
 
-The app `model_app.py` handles all inference for the CNN models.
+The app [`model_app.py`](../model_app.py) handles all inference for the CNN models.
 
 Now that we have a trained model and stream processing service setup we can try to predict the label of an image.
 
 To perform a prediction on a new image follow the steps below:
 
-1. Open up the `streamlit` application by running `streamlit run model_app.py` in a terminal.
+1. Open up the [`streamlit`](https://streamlit.io/) application by running `streamlit run model_app.py` in a terminal.
 
 2. Choose the `Inference` option from the **What do you want to do?** select box.
 

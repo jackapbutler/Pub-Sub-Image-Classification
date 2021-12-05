@@ -1,6 +1,6 @@
 # Pub Sub
 
-Now that the model is trained we can setup the Kafka Pub-Sub architecture. The messages within this ML system will be sent/received using a stream processing architecture. There are two implementation options:
+Now that the model is trained we can setup the Pub-Sub architecture. The messages within this ML system will be sent/received using a stream processing architecture. There are two implementation options:
 
 1. A locally hosted [Apache Kafka](https://kafka.apache.org/).
 
@@ -21,7 +21,9 @@ To setup Kafka follow the steps below:
 
 5. We will need to create one topic called `fashion-images` for this assignment.
 
-- Create a topic by running `bin/kafka-topics.sh --create --topic fashion-images --bootstrap-server localhost:9092 --replication-factor 1 --partitions 4`.
+```shell
+bin/kafka-topics.sh --create --topic fashion-images --bootstrap-server localhost:9092 --replication-factor 1 --partitions 4
+```
 
 > List all created topics with `bin/kafka-topics.sh --list --bootstrap-server localhost:9092`.
 
@@ -31,7 +33,7 @@ To setup Kafka follow the steps below:
 
 6. To setup Kafka you will need a [Producer](../kafka_producer.py) and [Consumer](../kafka_consumer.py).
 
-- The Producer will be controlled inside `model_app.py` in the `Inference` page and does not need any prior setup.
+- The Producer will be controlled inside [`model_app.py`](../model_app.py) in the `Inference` page and does not need any prior setup.
 
   > Press `Send Image` to send the uploaded image to the `fashion-images` topic for predictions.
 
@@ -53,6 +55,6 @@ To setup GCP Pub/Sub follow the steps below:
 
 5. The code in `gcp_producer.py` replicates the same structure as `kafka_producer.py`.
 
-> Once you follow the steps above you should be able to swap the `KafkaImage<USE CASE>` for the respective `GCPImage<USE CASE>` classes.
+> You should be able to swap the `KafkaImage<USE CASE>` for the respective `GCPImage<USE CASE>` classes.
 
 > You can test this GCP Pub/Sub system in the [`gcp_pubsub_test.py`](../gcp_pubsub_test.py) file

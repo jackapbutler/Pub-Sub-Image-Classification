@@ -2,7 +2,7 @@
 
 The main dataset used is the Fasion MNIST benchmark dataset.
 
-I used the `fmnist_to_png.py` file to convert the `.gz` folders from Fashion MNIST into an easier to use `.png`.
+I used the [`fmnist_to_png.py`](../fmnist_to_png.py) file to convert the `.gz` folders from Fashion MNIST into an easier to use `.png`.
 
 1. Download the raw `.gz` dataset from [zalandoresearch/fashion-mnist](https://github.com/zalandoresearch/fashion-mnist)
 
