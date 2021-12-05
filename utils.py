@@ -1,9 +1,7 @@
 """ General utility functions for streamlit and image processing"""
-import io
 import os
 from typing import List
 
-import numpy as np
 import streamlit as st
 
 
@@ -41,16 +39,3 @@ def fcount(path: str) -> int:
         count1 += len(dirs)
 
     return count1
-
-
-def img_to_bytes(img_array: np.ndarray) -> bytes:
-    """Reads an image file into memory and converts to bytes"""
-    np_bytes = io.BytesIO()
-    np.save(np_bytes, img_array, allow_pickle=True)
-    return np_bytes.getvalue()
-
-
-def bytes_to_img(img_bytes: bytes) -> np.ndarray:
-    """Decodes the bytes into the a NumPy array"""
-    load_bytes = io.BytesIO(img_bytes)
-    return np.load(load_bytes, allow_pickle=True)

@@ -42,3 +42,15 @@ To setup Kafka follow the steps below:
 ## Google Cloud Pub/Sub
 
 To setup GCP Pub/Sub follow the steps below:
+
+1. Create a project on GCP and enable the [Pub/Sub](https://cloud.google.com/pubsub) API.
+
+2. Create a service account with a `secret-key.json` file for accessing GCP.
+
+3. Create a topic on GCP Pub/Sub called `fashion-images`.
+
+4. The code in `gcp_consumer.py` replicates the same structure as the Kafka Consumer in `kafka_consumer.py`.
+
+5. The code in `gcp_producer.py` replicates the same structure as the Kafka Producer in `kafka_producer.py`.
+
+> I tested this implementation briefly on GCP and confirmed it worked in the same form as the locally hosted Kafka version.

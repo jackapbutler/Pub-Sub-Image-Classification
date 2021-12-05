@@ -5,12 +5,12 @@ import streamlit as st
 import tensorflow.keras as keras
 
 import inference as infer
-import kafka_consumer as consumer
+from kafka_consumer import KafkaImageConsumer, DEFAULT_TOPIC
 import utils
 
 st.title("Results/Prediction App")
 st.markdown(
-    f"This application will generate a Kafka consumer listening on the **{consumer.TOPIC}** topic for images sent by the producer in **model_app.py**."
+    f"This application will generate a Kafka consumer listening on the **{DEFAULT_TOPIC}** topic for images sent by the producer in **model_app.py**."
 )
 st.markdown(
     "The message is parsed using the key as the **model name** to send the request to and the value as the **image data** in bytes"
@@ -22,16 +22,13 @@ st.markdown(
 start = utils.StartButton("Start Listening")
 
 if start:
-    kafka_consumer = consumer.initialise_img_consumer(consumer.TOPIC)
+    kafka_consumer = KafkaImageConsumer()
+    initialised = kafka_consumer.initialise_consumer()
 
-    for message in kafka_consumer:
+    for message in initialised:
         st.subheader(f"Message Received")
 
-        mname_bytes: bytes = message.key
-        img_bytes: bytes = message.value
-
-        model_name = mname_bytes.decode()
-        img_array = utils.bytes_to_img(img_bytes)
+        img_array, model_name = kafka_consumer.decode_message(message)
 
         st.write("A prediction is required for this image:")
         st.image(img_array)
