@@ -45,7 +45,7 @@ if start:
 
             try:
                 prediction = infer.perform_image_prediction(img_array, model)
-                st.markdown(f"Predicted is complete with label: {prediction}")
+                st.markdown(f"Predicted is complete with label: **{prediction}**")
 
             except Exception as ex:
                 msg = "Failed to get prediction for this message."

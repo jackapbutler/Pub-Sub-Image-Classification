@@ -31,11 +31,13 @@ To setup Kafka follow the steps below:
 
 6. To setup Kafka you will need a [Producer](../producer.py) and [Consumer](../consumer.py).
 
-- The Producer will be controlled inside of `model_app.py` and does not need any prior setup.
+- The Producer will be controlled inside `model_app.py` in the `Inference` page and does not need any prior setup.
 
 - To setup the Consumer, open up a terminal instance and run `streamlit run results_app.py`.
 
-1.
+1. Read the initial details on the application page which describe the configuration of the Consumer.
+
+2. Press `Start Listening` to initialise a Consumer which will read from the `fashion-images` topic and perform predictions.
 
 ## Google Cloud Pub/Sub
 
