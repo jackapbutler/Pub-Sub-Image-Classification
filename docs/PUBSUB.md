@@ -29,15 +29,15 @@ To setup Kafka follow the steps below:
 
 > Delete a topic with `bin/kafka-topics.sh --delete --topic fashion-images --bootstrap-server localhost:9092`
 
-6. To setup Kafka you will need a [Producer](../producer.py) and [Consumer](../consumer.py).
+6. To setup Kafka you will need a [Producer](../kafka_producer.py) and [Consumer](../kafka_consumer.py).
 
 - The Producer will be controlled inside `model_app.py` in the `Inference` page and does not need any prior setup.
 
+  > Press `Send Image` to send the uploaded image to the `fashion-images` topic for predictions.
+
 - To setup the Consumer, open up a terminal instance and run `streamlit run results_app.py`.
 
-1. Read the initial details on the application page which describe the configuration of the Consumer.
-
-2. Press `Start Listening` to initialise a Consumer which will read from the `fashion-images` topic and perform predictions.
+  > Press `Start Listening` to initialise a Consumer which will read from the `fashion-images` topic and perform predictions.
 
 ## Google Cloud Pub/Sub
 
