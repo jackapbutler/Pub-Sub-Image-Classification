@@ -16,4 +16,4 @@ Once you are satisfied with the model architecture follow the steps below:
 
 4. Enter a unique `model name` you want to assign this model (e.g. cnn_10_filters).
 
-5. Click the **Start** button to begin training the model!
+5. Click the **Start Training** button to begin training the model!
