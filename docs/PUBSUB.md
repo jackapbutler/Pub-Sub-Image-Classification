@@ -49,8 +49,10 @@ To setup GCP Pub/Sub follow the steps below:
 
 3. Create a topic on GCP Pub/Sub called `fashion-images`.
 
-4. The code in `gcp_consumer.py` replicates the same structure as the Kafka Consumer in `kafka_consumer.py`.
+4. The code in `gcp_consumer.py` replicates the same structure as `kafka_consumer.py`.
 
-5. The code in `gcp_producer.py` replicates the same structure as the Kafka Producer in `kafka_producer.py`.
+5. The code in `gcp_producer.py` replicates the same structure as `kafka_producer.py`.
 
-> I tested this implementation briefly on GCP and confirmed it worked in the same form as the locally hosted Kafka version.
+> Once you follow the steps above you should be able to swap the `KafkaImage<USE CASE>` for the respective `GCPImage<USE CASE>` classes.
+
+> You can test this GCP Pub/Sub system in the [`gcp_pubsub_test.py`](../gcp_pubsub_test.py) file

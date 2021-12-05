@@ -7,7 +7,7 @@ LOCAL_KAFKA_HOST = "localhost:9092"
 
 
 class KafkaImageProducer:
-    """Kafka Producer class which can send images"""
+    """Kafka Producer class which can send and decode images"""
 
     def __init__(self, bootstrap_servers=LOCAL_KAFKA_HOST) -> None:
         self.bootstrap_servers: str = bootstrap_servers
@@ -23,13 +23,15 @@ class KafkaImageProducer:
         Sends a image as bytes to a certain Kafka topic
         """
         self.img_producer.send(
-            topic, key=f"{model_name}".encode(), value=self.img_to_bytes(img_array)
+            topic,
+            key=f"{model_name}".encode("utf-8"),
+            value=self.img_to_bytes(img_array),
         )
         self.img_producer.flush()
 
     @staticmethod
     def img_to_bytes(img_array: np.ndarray) -> bytes:
-        """Reads an image file into memory and converts to bytes"""
+        """Convert image array into bytes"""
         np_bytes = io.BytesIO()
         np.save(np_bytes, img_array, allow_pickle=True)
         return np_bytes.getvalue()

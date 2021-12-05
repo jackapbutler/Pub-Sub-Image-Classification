@@ -21,14 +21,14 @@ class KafkaImageConsumer:
         )
 
     def decode_message(self, message) -> Tuple[np.ndarray, str]:
-        """Decode a full message received from a producer"""
+        """Decode a full message received from a producer and returns the image array and model name"""
         mname_bytes: bytes = message.key
         img_bytes: bytes = message.value
 
-        return self.bytes_to_img(img_bytes), mname_bytes.decode()
+        return self.bytes_to_img(img_bytes), mname_bytes.decode("utf-8")
 
     @staticmethod
     def bytes_to_img(img_bytes: bytes) -> np.ndarray:
-        """Decodes the bytes into the a NumPy array"""
+        """Decodes the bytes into a NumPy array"""
         load_bytes = io.BytesIO(img_bytes)
         return np.load(load_bytes, allow_pickle=True)

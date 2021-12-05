@@ -1,7 +1,9 @@
 """ General utility functions for streamlit and image processing"""
-import os
-from typing import List
 
+import os
+from typing import Dict, List
+import numpy as np
+import json
 import streamlit as st
 
 
@@ -39,3 +41,21 @@ def fcount(path: str) -> int:
         count1 += len(dirs)
 
     return count1
+
+
+def set_gcp_config() -> Dict[str, str]:
+    """Generate a GCP configuration variable"""
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "secret-key.json"
+
+    return {
+        "topic": "fashion-images",
+        "project": "vector-test-334120",
+        "topic_sub": "fashion-images-sub",
+    }
+
+
+class NumpyArrayEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, np.ndarray):
+            return obj.tolist()
+        return json.JSONEncoder.default(self, obj)
