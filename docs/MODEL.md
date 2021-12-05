@@ -2,7 +2,9 @@
 
 This app handles all of training of the CNN models.
 
-I have used a basic CNN model defined inside of [`modelling`.py](../modelling.py). You can add more layers, hidden neurons, convolutional filters or change any other model configuration elements inside of the `create_and_compile_model()` function.
+I have used a basic CNN model defined inside of [`modelling`.py](../modelling.py). You can add more layers, hidden neurons, convolutional filters or change any other model configuration elements inside of the `create_and_compile_model()` function to increase the model performance.
+
+As mentioned in the assignment "Don’t spend too long trying to push the accuracy up." and due to my own hardware contraints I chose the focus on completing the entire assignment and was satisfied to move onto Part 2 once training/validation accuracy were above 70%.
 
 Once you are satisfied with the model architecture follow the steps below:
 
