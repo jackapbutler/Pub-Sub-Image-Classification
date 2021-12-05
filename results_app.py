@@ -1,5 +1,6 @@
 """ Application to start a Kafka consumer and watch image processing """
 import kafka_consumer as consumer
+import tensorflow.keras as keras
 import utils
 import logging
 import inference as infer
@@ -28,27 +29,29 @@ if start:
         mname_bytes: bytes = message.key
         img_bytes: bytes = message.value
 
-        img_array = utils.bytes_to_img(img_bytes)
         model_name = mname_bytes.decode()
+        img_array = utils.bytes_to_img(img_bytes)
 
         st.write("A prediction is required for this image:")
         st.image(img_array)
         st.markdown(f"The message has key value of **{model_name}**.")
 
         st.markdown(f"Loading model **{model_name}** from local storage.")
-        model, _ = infer.load_model_and_history(model_name)
-        st.write(f"Model has been loaded successfully from local storage.")
+        model, trainHistory = infer.load_model_and_history(model_name)
 
-        st.write("Performing image prediction now.")
-        try:
-            prediction = infer.perform_image_prediction(img_array, model_name)
-        except Exception as ex:
-            logging.exception(ex)
-            st.write("Producer message was not suitable for prediction.")
-            st.write(img_array)
-            prediction = None
+        if isinstance(model, keras.models.Sequential):
+            st.write("Model has been loaded successfully from local storage.")
+            st.write("Performing image prediction now.")
 
-        if prediction:
-            st.markdown(f"Predicted is complete with label: {prediction}")
+            try:
+                prediction = infer.perform_image_prediction(img_array, model)
+                st.markdown(f"Predicted is complete with label: {prediction}")
+
+            except Exception as ex:
+                msg = "Failed to get prediction for this message."
+                logging.error(msg)
+                st.write(msg)
+
         else:
-            st.markdown("No valid prediction for this message.")
+            st.write("Failed to load model from local storage.")
+            st.write(f"Loaded object as type: {type(model)}")

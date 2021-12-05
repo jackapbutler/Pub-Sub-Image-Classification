@@ -60,9 +60,16 @@ elif choice == INFER:
         st.subheader("Your Image")
         st.write(image)
         st.image(image)
-
         img: np.ndarray = sk_io.imread(image)
+
+        st.write("Initialising a Kafka producer.")
+        kafka_producer = producer.initialise_producer(producer.LOCAL_KAFKA_HOST)
+        st.write(f"Initialised a Kafka producer at {producer.LOCAL_KAFKA_HOST}.")
+
         st.markdown(f"Sending message to Kafka topic **{consumer.TOPIC}**")
-        producer.send_img_to_kafka(img, mname, consumer.TOPIC)
+        producer.send_img_to_kafka(kafka_producer, img, mname, consumer.TOPIC)
         st.markdown(f"Message has been sent to Kafka topic **{consumer.TOPIC}**")
-        st.write("Check the Consumer of this topic for a prediction!")
+
+        st.markdown(
+            "Check the Consumer of this topic at **results_app.py** for a prediction!"
+        )
