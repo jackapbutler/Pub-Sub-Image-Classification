@@ -1,8 +1,7 @@
-import numpy as np
-
 """ Testing the GCP Pub/Sub Inference system"""
 import time
 
+import numpy as np
 import skimage.io as sk_io
 
 import utils
@@ -23,6 +22,6 @@ while True:
     prod.send_image(img_array, MODEL, GCP_CONFIG["topic"])
 
     cons = GCPImageConsumer()
-    cons.open_listening_channel()
+    cons.open_listening_channel()  # replicates the .initialise_consumer() method
 
     time.sleep(3)
