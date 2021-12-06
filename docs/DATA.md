@@ -20,4 +20,4 @@ mnist_to_png.py
 3. Now run `python3 fmnist_to_png.py` to extract the images as `.png` files.
 
 - This will unzip, parse and save the images to a `png_data/` folder where each subfolder refers to their label.
-  > See `LABELS` module level variable in [`fmnist_to_png.py`](../fmnist_to_png.py`) for an explanation of these labels.
+  > See `LABELS` module level variable in [`proccessing.py`](../processing.py`) for an explanation of these labels.
