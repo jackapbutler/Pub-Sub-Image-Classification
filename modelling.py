@@ -42,9 +42,9 @@ def save_trained_model(
     model_name: str, theModel: keras.models.Sequential, trainHistory: cbacks.History
 ) -> None:
     """Saves a tensorflow model and training history to local file storage"""
-    with open(f"{MODEL_DIR}{model_name}_trainHistoryDict.p", "wb") as fp:
+    with open(f"{MODEL_DIR}/{model_name}/trainHistoryDict.p", "wb") as fp:
         pickle.dump(trainHistory.history, fp)
-    theModel.save(f"{MODEL_DIR}{model_name}")
+    theModel.save(f"{MODEL_DIR}/{model_name}")
 
 
 def fit_cnn_model(

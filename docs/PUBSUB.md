@@ -57,4 +57,4 @@ To setup GCP Pub/Sub follow the steps below:
 
 > You should be able to swap the `KafkaImage<USE CASE>` for the respective `GCPImage<USE CASE>` classes.
 
-> You can test this GCP Pub/Sub system in the [`gcp_pubsub_test.py`](../gcp_pubsub_test.py) file
+> You can test this GCP Pub/Sub system in the [`gcp_pubsub_test.py`](../gcp_pubsub_test.py) file. You will first need to add your GCP configuration details to the `set_gcp_config()` function.

@@ -24,7 +24,7 @@ def load_model_and_history(
 def perform_image_prediction(
     img_array: np.ndarray, model: keras.models.Sequential
 ) -> str:
-    """Takes in the NumPy array of image data and perfoms a classification prediction"""
+    """Takes in the NumPy array of image data and a keras model to perfom classification"""
     prepped_img = dproc.prep_image(img_array)
     final_img = prepped_img.reshape(1, prepped_img.shape[0], prepped_img.shape[1], 1)
     output = model.predict(final_img)
