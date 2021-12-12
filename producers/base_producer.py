@@ -14,4 +14,5 @@ class BaseProducer(abc.ABC):
         model_name: str,
         topic: str,
     ) -> None:
+        """Send an image array to a streaming topic"""
         pass
