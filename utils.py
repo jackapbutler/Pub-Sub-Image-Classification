@@ -1,11 +1,15 @@
 """ General utility functions for streamlit and image processing"""
 
+import configparser
+import io
 import json
 import os
-from typing import Dict, List
+from typing import List
 
 import numpy as np
 import streamlit as st
+
+CONFIG_PATH = "config.ini"
 
 
 def ModelInput() -> str:
@@ -44,19 +48,31 @@ def fcount(path: str) -> int:
     return count1
 
 
-def set_gcp_config() -> Dict[str, str]:
-    """Generate a GCP configuration variable"""
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "secret-key.json"
-
-    return {
-        "topic": "fashion-images",
-        "project": "vector-test-334120",
-        "topic_sub": "fashion-images-sub",
-    }
-
-
 class NumpyArrayEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, np.ndarray):
             return obj.tolist()
         return json.JSONEncoder.default(self, obj)
+
+
+def img_to_bytes(img_array: np.ndarray) -> bytes:
+    """Convert image array into bytes"""
+    np_bytes = io.BytesIO()
+    np.save(np_bytes, img_array, allow_pickle=True)
+    return np_bytes.getvalue()
+
+
+def bytes_to_img(img_bytes: bytes) -> np.ndarray:
+    """Decodes the bytes into a NumPy array"""
+    load_bytes = io.BytesIO(img_bytes)
+    return np.load(load_bytes, allow_pickle=True)
+
+
+def get_config() -> configparser.ConfigParser:
+    """Read from the config.ini file for backend configuration variables"""
+    config = configparser.ConfigParser()
+    config.read(CONFIG_PATH)
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = config["GoogleCloud"][
+        "CredentialsPath"
+    ]
+    return config

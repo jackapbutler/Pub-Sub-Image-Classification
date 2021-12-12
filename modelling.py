@@ -6,9 +6,9 @@ import tensorflow.keras as keras
 import tensorflow.python.keras.callbacks as cbacks
 
 import processing as dproc
+import utils
 
-MODEL_DIR = "models"
-TRAIN_EPOCHS = 50
+CONFIG = utils.get_config()
 
 
 def create_and_compile_model(D_x: int, D_y: int) -> keras.models.Sequential:
@@ -42,9 +42,11 @@ def save_trained_model(
     model_name: str, theModel: keras.models.Sequential, trainHistory: cbacks.History
 ) -> None:
     """Saves a tensorflow model and training history to local file storage"""
-    with open(f"{MODEL_DIR}/{model_name}/trainHistoryDict.p", "wb") as fp:
+    with open(
+        f"{CONFIG['Modelling']['ModelDir']}/{model_name}/trainHistoryDict.p", "wb"
+    ) as fp:
         pickle.dump(trainHistory.history, fp)
-    theModel.save(f"{MODEL_DIR}/{model_name}")
+    theModel.save(f"{CONFIG['Modelling']['ModelDir']}/{model_name}")
 
 
 def fit_cnn_model(
@@ -56,7 +58,7 @@ def fit_cnn_model(
 
     trainHistory = model.fit(
         trainGen,
-        epochs=TRAIN_EPOCHS,
+        epochs=CONFIG["Modelling"]["Epochs"],
         verbose=1,
         callbacks=[
             cbacks.EarlyStopping(monitor="val_accuracy", mode="max", min_delta=1)

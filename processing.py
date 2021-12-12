@@ -11,8 +11,7 @@ import tensorflow.keras.utils as tf_utils
 
 import utils
 
-BATCH_SIZE = 20
-
+CONFIG = utils.get_config()
 LABELS = {
     "0": "T-shirt/top",
     "1": "Trouser",
@@ -38,7 +37,7 @@ class DataGenerator(tf_utils.Sequence):
         doRandomize=False,
     ):
         self.fileNames: List[str] = fileNames
-        self.batchSize: int = BATCH_SIZE
+        self.batchSize: int = CONFIG["Modelling"]["BatchSize"]
         self.doRandomize: bool = doRandomize
         self.numImages: int = len(self.fileNames)  # number of files
         self.on_epoch_end()
