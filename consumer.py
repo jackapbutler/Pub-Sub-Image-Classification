@@ -1,8 +1,8 @@
 """Instantiating different consumer types based on user input"""
 from typing import Literal, Union
 
-import gcp_consumer
-import kafka_consumer
+import consumers.gcp_consumer as gcp_consumer
+import consumers.kafka_consumer as kafka_consumer
 
 CONSUMERS = {
     "Kafka": kafka_consumer.KafkaImageConsumer,

@@ -5,7 +5,7 @@ import kafka
 import numpy as np
 
 import utils
-from base_consumer import BaseConsumer
+from consumers.base_consumer import BaseConsumer
 
 CONFIG = utils.get_config()
 

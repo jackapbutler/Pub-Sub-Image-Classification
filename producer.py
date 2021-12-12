@@ -1,8 +1,8 @@
 """Instantiating different producer types based on user input"""
 from typing import Literal, Union
 
-import gcp_producer
-import kafka_producer
+import producers.gcp_producer as gcp_producer
+import producers.kafka_producer as kafka_producer
 
 PRODUCERS = {
     "Kafka": kafka_producer.KafkaImageProducer,

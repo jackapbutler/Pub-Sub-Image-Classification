@@ -7,7 +7,7 @@ from google.api_core import retry
 from google.cloud import pubsub_v1
 
 import utils
-from base_consumer import BaseConsumer
+from consumers.base_consumer import BaseConsumer
 
 CONFIG = utils.get_config()
 
