@@ -51,9 +51,7 @@ class GCPImageConsumer(BaseConsumer):
                 f"Received and acknowledged {len(response.received_messages)} messages from {self.subscription_path}."
             )
 
-    def decode_message(
-        self, message: pubsub_v1.subscriber.message.Message
-    ) -> Tuple[np.ndarray, str]:
+    def decode_message(self, message) -> Tuple[np.ndarray, str]:
         print("Received Message")
         dict_data: Dict = message.data
         decoded_data = json.loads(dict_data.decode("utf-8"))

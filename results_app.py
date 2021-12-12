@@ -1,8 +1,8 @@
 """ Application to start a Kafka consumer and watch image processing """
 import streamlit as st
 
-import utils
 import consumer
+import utils
 
 CONFIG = utils.get_config()
 CHOICE = CONFIG["BrokerChoice"]

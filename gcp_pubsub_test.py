@@ -8,7 +8,8 @@ import utils
 from gcp_consumer import GCPImageConsumer
 from gcp_producer import GCPImageProducer
 
-GCP_CONFIG = utils.set_gcp_config()
+CONFIG = utils.get_config()
+
 MODEL = "baseline"
 TEST_FILE = "png_data/0/1_tr.png"
 
@@ -19,9 +20,9 @@ while True:
     img_array: np.ndarray = sk_io.imread(TEST_FILE)
 
     prod = GCPImageProducer()
-    prod.send_image(img_array, MODEL, GCP_CONFIG["topic"])
+    prod.send_image(img_array, MODEL, CONFIG["GoogleCloud"]["Topic"])
 
     cons = GCPImageConsumer()
-    cons.open_listening_channel()  # replicates the .initialise_consumer() method
+    cons.initialise_consumer()  # replicates the .initialise_consumer() method
 
     time.sleep(3)

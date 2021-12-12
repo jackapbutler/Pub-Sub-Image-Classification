@@ -5,11 +5,13 @@ import numpy as np
 import skimage.io as sk_io
 import streamlit as st
 
-import kafka_consumer as consumer
 import modelling as mtrain
 import processing as dproc
+import producer
 import utils
-from kafka_producer import KafkaImageProducer
+
+CONFIG = utils.get_config()
+CHOICE = CONFIG["BrokerChoice"]
 
 TRAIN = "Training"
 INFER = "Inference"
@@ -63,15 +65,12 @@ elif choice == INFER:
         img: np.ndarray = sk_io.imread(image)
 
         st.write("Initialising a Kafka producer.")
-        kafka_producer = KafkaImageProducer()
-        st.markdown(
-            f"Initialised a Kafka producer sending to **{kafka_producer.bootstrap_servers}**."
-        )
+        producer = producer.instantiate_producer(CHOICE)
 
-        st.markdown(f"Sending message to Kafka topic **{consumer.DEFAULT_TOPIC}**")
-        kafka_producer.send_image(img, mname, consumer.DEFAULT_TOPIC)
+        st.markdown(f"Sending message to Kafka topic **{CONFIG[CHOICE]['Topic']}**")
+        producer.send_image(img, mname, CONFIG[CHOICE]["Topic"])
         st.markdown(
-            f"Message has been sent to Kafka topic **{consumer.DEFAULT_TOPIC}**"
+            f"Message has been sent to Kafka topic **{CONFIG[CHOICE]['Topic']}**"
         )
 
         st.markdown(
