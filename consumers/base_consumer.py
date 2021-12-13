@@ -16,7 +16,8 @@ class BaseConsumer(abc.ABC):
         """Start listening to a certain topic"""
         pass
 
-    def decode_message(self, dict_data: Dict) -> Tuple[np.ndarray, str]:
+    @staticmethod
+    def decode_message(dict_data) -> Tuple[np.ndarray, str]:
         decoded_data = json.loads(dict_data.decode("utf-8"))
 
         return np.array(json.loads(decoded_data.get("img_data"))), decoded_data.get(

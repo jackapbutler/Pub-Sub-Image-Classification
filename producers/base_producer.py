@@ -23,7 +23,7 @@ class BaseProducer(abc.ABC):
         pass
 
     @staticmethod
-    def encode_message(model_name: str, img_array: np.ndarray) -> Dict:
+    def encode_message(model_name: str, img_array: np.ndarray):
         """Prepare payload to be sent to GCP Pub/Sub"""
         payload = {
             "model": model_name,
