@@ -6,6 +6,22 @@ Now that the model is trained we can setup the Pub-Sub architecture. The message
 
 2. A Google Cloud Platform [Pub/Sub](https://cloud.google.com/pubsub).
 
+# Design
+
+In order to make adding more message brokers a less painful experience I have added multiple components:
+
+1. Abstract base class [`BaseConsumer`](../consumers/base_consumers.py) and [`BaseProducer`](../producers/base_producers.py) which provides;
+
+   a) Inherited methods for decoding / encoding payloads and making predictions
+
+   b) Abstract methods for class structure.
+
+2. A configuration file [`config.ini`](../config.ini) which outlines the training and message broker configuration parameters.
+
+3. Decision functions [`instantiate_producer()`](../producer.py) and [`instantiate_consumer()`](../consumer.py) which will decide based on the configuration file which message broker should be used for the application.
+
+# Message Brokers
+
 ## Apache Kafka
 
 To setup Kafka follow the steps below:
@@ -31,7 +47,7 @@ bin/kafka-topics.sh --create --topic fashion-images --bootstrap-server localhost
 
 > Delete a topic with `bin/kafka-topics.sh --delete --topic fashion-images --bootstrap-server localhost:9092`
 
-6. To setup Kafka you will need a [Producer](../kafka_producer.py) and [Consumer](../kafka_consumer.py).
+6. To setup Kafka you will need a [Producer](../producers/kafka_producer.py) and [Consumer](../consumers/kafka_consumer.py).
 
 - The Producer will be controlled inside [`model_app.py`](../model_app.py) in the `Inference` page and does not need any prior setup.
 
@@ -51,10 +67,6 @@ To setup GCP Pub/Sub follow the steps below:
 
 3. Create a topic on GCP Pub/Sub called `fashion-images`.
 
-4. The code in `gcp_consumer.py` replicates the same structure as `kafka_consumer.py`.
+4. The code in [`gcp_consumer.py`](../consumers/gcp_consumer.py) replicates the same Consumer structure as `kafka_consumer.py`.
 
-5. The code in `gcp_producer.py` replicates the same structure as `kafka_producer.py`.
-
-> You should be able to swap the `KafkaImage<USE CASE>` for the respective `GCPImage<USE CASE>` classes.
-
-> You can test this GCP Pub/Sub system in the [`gcp_pubsub_test.py`](../gcp_pubsub_test.py) file. You will first need to add your GCP configuration details to the `set_gcp_config()` function.
+5. The code in [`gcp_producer.py`](../producers/gcp_producer.py) replicates the same Producer structure as `kafka_producer.py`.

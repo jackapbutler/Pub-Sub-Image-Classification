@@ -12,8 +12,6 @@ To perform a prediction on a new image follow the steps below:
 
 3. Enter the `model name` you want to perform the prediction.
 
-   > The model name is placed as a key which the Kafka Consumer uses to know which model should perform the prediction.
-
 4. Upload your chosen Fashion clothing image.
 
 5. Click the **Start** button to get a prediction!
