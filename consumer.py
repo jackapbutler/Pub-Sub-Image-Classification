@@ -5,8 +5,8 @@ import consumers.gcp_consumer as gcp_consumer
 import consumers.kafka_consumer as kafka_consumer
 
 CONSUMERS = {
-    "Kafka": kafka_consumer.KafkaImageConsumer(),
-    "GCP Pub/Sub": gcp_consumer.GCPImageConsumer(),
+    "Kafka": kafka_consumer.KafkaImageConsumer,
+    "GCP Pub/Sub": gcp_consumer.GCPImageConsumer,
 }
 
 
@@ -19,6 +19,6 @@ def instantiate_consumer(
 
     else:
         print(f"Could not find a consumer with type {type}, defaulting to Kafka.")
-        consumer = kafka_consumer.KafkaImageConsumer()
+        consumer = kafka_consumer.KafkaImageConsumer
 
-    return consumer
+    return consumer()
