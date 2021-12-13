@@ -5,8 +5,8 @@ import producers.gcp_producer as gcp_producer
 import producers.kafka_producer as kafka_producer
 
 PRODUCERS = {
-    "Kafka": kafka_producer.KafkaImageProducer,
-    "GCP Pub/Sub": gcp_producer.GCPImageProducer,
+    "Kafka": kafka_producer.KafkaImageProducer(),
+    "GCP Pub/Sub": gcp_producer.GCPImageProducer(),
 }
 
 
@@ -19,6 +19,6 @@ def instantiate_producer(
 
     else:
         print(f"Could not find a consumer with type {type}, defaulting to Kafka.")
-        producer = kafka_producer.KafkaImageProducer
+        producer = kafka_producer.KafkaImageProducer()
 
     return producer
