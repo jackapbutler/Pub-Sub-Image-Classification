@@ -10,7 +10,7 @@ Now that the model is trained we can setup the Pub-Sub architecture. The message
 
 In order to make adding more message brokers a less painful experience I have added multiple components:
 
-1. Abstract base classes [`BaseConsumer`](../consumers/base_consumers.py) and [`BaseProducer`](../producers/base_producers.py) which provide;
+1. Abstract base classes [`BaseConsumer`](../consumers/base_consumer.py) and [`BaseProducer`](../producers/base_producer.py) which provide;
 
    a) Inherited methods for decoding / encoding payloads and making predictions.
 
