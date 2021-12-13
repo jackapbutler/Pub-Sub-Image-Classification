@@ -1,13 +1,14 @@
 """ Module to handle instantiating and sending image data from a Kafka producer """
 import kafka
 import numpy as np
+from producers.base_producer import BaseProducer
 
 import utils
 
 CONFIG = utils.get_config()
 
 
-class KafkaImageProducer:
+class KafkaImageProducer(BaseProducer):
     """Kafka Producer class which can send and decode images"""
 
     def __init__(self, bootstrap_servers=CONFIG["Kafka"]["Host"]) -> None:
@@ -23,9 +24,6 @@ class KafkaImageProducer:
         """
         Sends a image as bytes to a certain Kafka topic
         """
-        self.img_producer.send(
-            topic,
-            key=f"{model_name}".encode("utf-8"),
-            value=utils.img_to_bytes(img_array),
-        )
+        data = self.encode_message(model_name, img_array)
+        self.img_producer.send(topic, data)
         self.img_producer.flush()
