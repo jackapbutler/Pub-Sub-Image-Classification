@@ -6,17 +6,19 @@ import numpy as np
 import tensorflow.keras as keras
 import tensorflow.keras.callbacks as cbacks
 
-import modelling as mtrain
 import processing as dproc
+import utils
+
+CONFIG = utils.get_config()
 
 
 def load_model_and_history(
     model_name: str,
 ) -> Tuple[keras.models.Sequential, cbacks.History]:
     """Loads a training tensorflow model and training history from local file storage"""
-    model = keras.models.load_model(f"{mtrain.MODEL_DIR}/{model_name}")
+    model = keras.models.load_model(f"{CONFIG['Modelling']['ModelDir']}/{model_name}")
     trainHistory = pickle.load(
-        open(f"{mtrain.MODEL_DIR}/{model_name}/trainHistoryDict.p", "rb")
+        open(f"{CONFIG['Modelling']['ModelDir']}/{model_name}/trainHistoryDict.p", "rb")
     )
     return model, trainHistory
 
