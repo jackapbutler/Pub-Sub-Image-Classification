@@ -25,7 +25,7 @@ class BaseConsumer(abc.ABC):
         )
 
     @staticmethod
-    def make_prediction(self, model_name: str, img_array: np.ndarray) -> None:
+    def make_prediction(model_name: str, img_array: np.ndarray) -> None:
         """Helper method to predict the label of a given image array"""
         model, _ = infer.load_model_and_history(model_name)
 
