@@ -1,7 +1,8 @@
 """Base consumer class for handling image messages"""
 import abc
-from typing import Tuple, Dict
 import json
+from typing import Dict, Tuple
+
 import numpy as np
 
 import inference as infer

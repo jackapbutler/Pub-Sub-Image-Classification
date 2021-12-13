@@ -1,10 +1,12 @@
 """Base producer class for handling image messages"""
 import abc
-from typing import Dict
 import json
 import time
-import utils
+from typing import Dict
+
 import numpy as np
+
+import utils
 
 
 class BaseProducer(abc.ABC):

@@ -2,9 +2,9 @@ import json
 
 import numpy as np
 from google.cloud import pubsub_v1
-from producers.base_producer import BaseProducer
 
 import utils
+from producers.base_producer import BaseProducer
 
 CONFIG = utils.get_config()
 

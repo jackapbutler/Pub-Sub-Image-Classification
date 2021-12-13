@@ -1,9 +1,9 @@
 """ Module to handle instantiating and sending image data from a Kafka producer """
 import kafka
 import numpy as np
-from producers.base_producer import BaseProducer
 
 import utils
+from producers.base_producer import BaseProducer
 
 CONFIG = utils.get_config()
 
