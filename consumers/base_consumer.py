@@ -1,7 +1,7 @@
 """Base consumer class for handling image messages"""
 import abc
-from typing import Tuple
-
+from typing import Tuple, Dict
+import json
 import numpy as np
 
 import inference as infer
@@ -15,10 +15,12 @@ class BaseConsumer(abc.ABC):
         """Start listening to a certain topic"""
         pass
 
-    @abc.abstractmethod
-    def decode_message(self, message) -> Tuple[np.ndarray, str]:
-        """Decoded a stream message"""
-        pass
+    def decode_message(self, dict_data: Dict) -> Tuple[np.ndarray, str]:
+        decoded_data = json.loads(dict_data.decode("utf-8"))
+
+        return np.array(json.loads(decoded_data.get("img_data"))), decoded_data.get(
+            "model"
+        )
 
     def make_prediction(self, model_name: str, img_array: np.ndarray) -> None:
         """Helper method to predict the label of a given image array"""

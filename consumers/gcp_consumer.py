@@ -1,8 +1,4 @@
 """ Module for consuming GCP messages from the inference topic """
-import json
-from typing import Dict, Tuple
-
-import numpy as np
 from google.api_core import retry
 from google.cloud import pubsub_v1
 
@@ -40,7 +36,7 @@ class GCPImageConsumer(BaseConsumer):
 
                 ack_ids = []
                 for message in response:
-                    img_array, model_name = self.decode_message(message)
+                    img_array, model_name = self.decode_message(message.data)
                     self.make_prediction(model_name, img_array)
 
             # Acknowledges the received messages so they will not be sent again.
@@ -50,12 +46,3 @@ class GCPImageConsumer(BaseConsumer):
             print(
                 f"Received and acknowledged {len(response.received_messages)} messages from {self.subscription_path}."
             )
-
-    def decode_message(self, message) -> Tuple[np.ndarray, str]:
-        print("Received Message")
-        dict_data: Dict = message.data
-        decoded_data = json.loads(dict_data.decode("utf-8"))
-
-        return np.array(json.loads(decoded_data.get("img_data"))), decoded_data.get(
-            "model"
-        )
