@@ -11,7 +11,7 @@ import producer
 import utils
 
 CONFIG = utils.get_config()
-CHOICE = CONFIG["BrokerChoice"]
+CHOICE = CONFIG["BrokerChoice"]["Type"]
 
 TRAIN = "Training"
 INFER = "Inference"

@@ -5,7 +5,7 @@ import consumer
 import utils
 
 CONFIG = utils.get_config()
-CHOICE = CONFIG["BrokerChoice"]
+CHOICE = CONFIG["BrokerChoice"]["Type"]
 
 st.title("Results/Prediction App")
 st.markdown(
