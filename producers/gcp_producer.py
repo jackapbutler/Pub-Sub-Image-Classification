@@ -31,6 +31,5 @@ class GCPImageProducer(BaseProducer):
         """Sends basic string message to consumer (testing purposes"""
         topic_path = self.img_producer.topic_path(self.project, topic)
         payload = {"Message": msg}
-        print(f"Sending payload {payload}")
         data = json.dumps(payload).encode("utf-8")
         self.img_producer.publish(topic_path, data)

@@ -38,11 +38,9 @@ class GCPImageConsumer(BaseConsumer):
                 for message in response:
                     img_array, model_name = self.decode_message(message.data)
                     self.make_prediction(model_name, img_array)
+                    ack_ids.append(message.ack_id)
 
             # Acknowledges the received messages so they will not be sent again.
             self.subscriber.acknowledge(
                 request={"subscription": self.subscription_path, "ack_ids": ack_ids}
-            )
-            print(
-                f"Received and acknowledged {len(response.received_messages)} messages from {self.subscription_path}."
             )
